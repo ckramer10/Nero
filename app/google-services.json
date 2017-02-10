@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1094117532630",
+    "firebase_url": "https://cs2340-69077.firebaseio.com",
+    "project_id": "cs2340-69077",
+    "storage_bucket": "cs2340-69077.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094117532630:android:e386e2b129ebf60f",
+        "android_client_info": {
+          "package_name": "com.sffilps.waterlocater"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094117532630-83b5b8p290lil25hg9irsv7r81okppl4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb1E4ySt4QQT3qscxxMBroqwPaaRa0Lp4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094117532630-83b5b8p290lil25hg9irsv7r81okppl4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
