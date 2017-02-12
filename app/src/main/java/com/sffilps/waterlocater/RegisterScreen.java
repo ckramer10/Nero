@@ -1,5 +1,9 @@
 package com.sffilps.waterlocater;
 
+/**
+ * Created by ckramer on 2/11/17.
+ */
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -40,13 +44,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class LoginScreen extends AppCompatActivity implements View.OnClickListener {
+public class RegisterScreen extends AppCompatActivity implements View.OnClickListener {
 
     // UI references.
-    private EditText signInEmail;
-    private EditText signInPassword;
-    private Button signInButton;
+    private EditText registerEmail;
+    private EditText registerPassword;
     private Button backButton;
+    private Button registerButton;
     private ProgressDialog progressDialog;
     boolean signInBool = false;
     boolean registerBool = false;
@@ -57,67 +61,65 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
         progressDialog = new ProgressDialog(this);
+        registerButton = (Button) findViewById(R.id.register_button);
         backButton = (Button) findViewById(R.id.back_button);
-        signInButton = (Button) findViewById(R.id.signIn_Button);
-        signInEmail = (EditText) findViewById(R.id.login_email);
-        signInPassword = (EditText) findViewById(R.id.login_password);
+        registerEmail = (EditText) findViewById(R.id.register_email);
+        registerPassword = (EditText) findViewById(R.id.register_password);
 
+        registerButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
-        signInButton.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
     }
 
-
-    private boolean signIn() {
-        String email = signInEmail.getText().toString().trim();
-        String password = signInPassword.getText().toString().trim();
+    private boolean registerUser() {
+        String email = registerEmail.getText().toString().trim();
+        String password = registerPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter a valid email address.",Toast.LENGTH_SHORT).show();
-            return signInBool;
+            return registerBool;
         }
 
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter your password.",Toast.LENGTH_SHORT).show();
-            return signInBool;
+            return registerBool;
         }
 
-        progressDialog.setMessage("Signing In User...");
+        progressDialog.setMessage("Registering User...");
         progressDialog.show();
 
-        mAuth.signInWithEmailAndPassword(email,password)
+        mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            signInBool = true;
+                            registerBool = true;
                         } else {
-                            Toast.makeText(LoginScreen.this, "Could not Sign In... Please try again.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterScreen.this, "Could not register... Please try again.",Toast.LENGTH_SHORT).show();
                         }
                         progressDialog.dismiss();
                     }
                 });
-        return signInBool;
-
+        return registerBool;
     }
 
 
     @Override
     public void onClick(View v) {
-       if (v == signInButton) {
-           if (signIn()) {
-               Context context = v.getContext();
-               Intent intent = new Intent(context, HomeScreen.class);
-               context.startActivity(intent);
-           }
+        if (v == registerButton) {
+            if (registerUser()) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, HomeScreen.class);
+                context.startActivity(intent);
+            }
         } else if (v == backButton) {
-           Context context = v.getContext();
-           Intent intent = new Intent(context, SplashScreen.class);
-           context.startActivity(intent);
-       }
+            Context context = v.getContext();
+            Intent intent = new Intent(context, SplashScreen.class);
+            context.startActivity(intent);
+
+        }
     }
 }
-
