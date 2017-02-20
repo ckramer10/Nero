@@ -39,7 +39,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
         if (currentUser != null) {
             String emailAdd = currentUser.getEmail();
-            email.setText(emailAdd);
+            email.setText("Welcome, " + emailAdd);
         } else {
             email.setText("Didn't work");
         }
