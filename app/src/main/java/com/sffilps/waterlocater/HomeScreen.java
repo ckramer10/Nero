@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 /**
  * Created by ckramer on 2/10/17.
@@ -22,9 +25,10 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
     private Button signoutButton;
     private FirebaseAuth mAuth;
-    private TextView email;
+    private TextView name;
     FirebaseUser currentUser;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +36,20 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_login_home);
 
         signoutButton = (Button) findViewById(R.id.signout_button);
-        email = (TextView) findViewById(R.id.email_text);
+        name = (TextView) findViewById(R.id.email_text);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         signoutButton.setOnClickListener(this);
 
         if (currentUser != null) {
-            String emailAdd = currentUser.getEmail();
-            email.setText(emailAdd);
+            String email = currentUser.getEmail();
+            name.setText(email);
         } else {
-            email.setText("Didn't work");
+            name.setText("Didn't work");
         }
-
-
     }
+
 
 
     @Override
