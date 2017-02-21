@@ -71,21 +71,12 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
     private Spinner spinner;
     private String username;
     private String role;
-    boolean signInBool = false;
     boolean registerBool = false;
     private FirebaseUser user;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
 
-    public RegisterScreen() {
-
-    }
-
-    public RegisterScreen(String role, String name) {
-        this.username = name;
-        this.role = role;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +131,10 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
 
     }
 
+    /**
+     * A method to attempt to register user
+     * @return boolean if successful
+     */
     private boolean registerUser() {
         String email = registerEmail.getText().toString().trim();
         String password = registerPassword.getText().toString().trim();
