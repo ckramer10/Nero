@@ -11,7 +11,7 @@ import android.widget.Button;
  * Created by ckramer on 2/11/17.
  */
 
-public class SplashScreen extends AppCompatActivity implements View.OnClickListener {
+public class SplashScreen extends AppCompatActivity {
 
     private Button signInButton;
     private Button registerButton;
@@ -24,6 +24,23 @@ public class SplashScreen extends AppCompatActivity implements View.OnClickListe
         registerButton = (Button) findViewById(R.id.register_button);
         signInButton = (Button) findViewById(R.id.login_button);
 
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, LoginScreen.class);
+                context.startActivity(intent);
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, RegisterScreen.class);
+                context.startActivity(intent);
+            }
+        });
 
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -54,19 +71,4 @@ public class SplashScreen extends AppCompatActivity implements View.OnClickListe
         startActivity(a);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == signInButton) {
-            Context context = v.getContext();
-            Intent intent = new Intent(context, LoginScreen.class);
-            context.startActivity(intent);
-
-        }
-
-        if (v == registerButton) {
-            Context context = v.getContext();
-            Intent intent = new Intent(context, RegisterScreen.class);
-            context.startActivity(intent);
-        }
-    }
 }

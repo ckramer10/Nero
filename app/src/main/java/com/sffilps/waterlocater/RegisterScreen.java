@@ -26,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,7 +43,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -65,21 +65,11 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
     private Spinner spinner;
     private String username;
     private String role;
-    boolean signInBool = false;
     boolean registerBool = false;
     private FirebaseUser user;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
-
-    public RegisterScreen() {
-
-    }
-
-    public RegisterScreen(String role, String name) {
-        this.username = name;
-        this.role = role;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +83,6 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
         registerPassword = (EditText) findViewById(R.id.register_password);
         registerName = (EditText) findViewById(R.id.register_name);
         spinner = (Spinner) findViewById(R.id.role_spinner);
-
 
         spinner.setOnItemSelectedListener(this);
         mAuth = FirebaseAuth.getInstance();
@@ -130,8 +119,13 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
                 context.startActivity(intent);
             }
         });
+
     }
 
+    /**
+     * A method to attempt to register user
+     * @return boolean if successful
+     */
     private boolean registerUser() {
         String email = registerEmail.getText().toString().trim();
         String password = registerPassword.getText().toString().trim();
