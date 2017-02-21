@@ -55,7 +55,6 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // Get user value
                             setUserName((String)dataSnapshot.child("name").getValue());
-                            System.out.println("HAHAHAHAHAHAHA: " + dataSnapshot.child("name").getValue());
                             name.setText("Name: " + userName);
                         }
                         @Override
