@@ -15,22 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "1094117532630-mho3fo6tabfuoamvitjmf8v1m0mlc5b3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sffilps.waterlocater",
-            "certificate_hash": "6CA8F9AE33F3F53C5C76AAAA3DFE25E7AE534B3D"
-          }
-        },
-        {
-          "client_id": "1094117532630-3sg4a0atb2skirvuqthmbmjp3pjcn4nc.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sffilps.waterlocater",
-            "certificate_hash": "1CFFF4F9DD9DBACD59082B38CA05C10E0CC05131"
-          }
-        },
-        {
           "client_id": "1094117532630-83b5b8p290lil25hg9irsv7r81okppl4.apps.googleusercontent.com",
           "client_type": 3
         }
