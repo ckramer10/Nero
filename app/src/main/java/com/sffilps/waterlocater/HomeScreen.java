@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
  * Created by ckramer on 2/10/17.
  */
 
-public class HomeScreen extends AppCompatActivity implements View.OnClickListener{
+public class HomeScreen extends AppCompatActivity {
 
     private Button signoutButton;
     private FirebaseAuth mAuth;
@@ -44,7 +44,18 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-        signoutButton.setOnClickListener(this);
+
+
+        signoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.getInstance().signOut();
+                Context context = v.getContext();
+                Intent intent = new Intent(context, SplashScreen.class);
+                context.startActivity(intent);
+                Toast.makeText(HomeScreen.this, "Signed Out.",Toast.LENGTH_LONG).show();
+            }
+        });
 
         if (currentUser != null) {
             String email = currentUser.getEmail();
@@ -71,18 +82,8 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
 
 
-    @Override
-    public void onClick(View v) {
-        if (v == signoutButton) {
-            mAuth.getInstance().signOut();
-            Context context = v.getContext();
-            Intent intent = new Intent(context, SplashScreen.class);
-            context.startActivity(intent);
-            Toast.makeText(HomeScreen.this, "Signed Out.",Toast.LENGTH_LONG).show();
-        }
-    }
-
     public void setUserName(String s) {
         userName = s;
     }
+
 }

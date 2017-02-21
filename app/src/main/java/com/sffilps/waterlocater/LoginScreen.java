@@ -40,7 +40,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class LoginScreen extends AppCompatActivity implements View.OnClickListener {
+public class LoginScreen extends AppCompatActivity  {
 
     // UI references.
     private EditText signInEmail;
@@ -64,13 +64,33 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         signInButton = (Button) findViewById(R.id.signIn_Button);
         signInEmail = (EditText) findViewById(R.id.login_email);
         signInPassword = (EditText) findViewById(R.id.login_password);
-
-        backButton.setOnClickListener(this);
-        signInButton.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
+
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (signIn()) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, HomeScreen.class);
+                    context.startActivity(intent);
+                }
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, SplashScreen.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
-
+    /**
+     * Method to Sign-In User
+     * @return boolean if successful
+     */
     private boolean signIn() {
         String email = signInEmail.getText().toString().trim();
         String password = signInPassword.getText().toString().trim();
@@ -102,22 +122,6 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                 });
         return signInBool;
 
-    }
-
-
-    @Override
-    public void onClick(View v) {
-       if (v == signInButton) {
-           if (signIn()) {
-               Context context = v.getContext();
-               Intent intent = new Intent(context, HomeScreen.class);
-               context.startActivity(intent);
-           }
-        } else if (v == backButton) {
-           Context context = v.getContext();
-           Intent intent = new Intent(context, SplashScreen.class);
-           context.startActivity(intent);
-       }
     }
 }
 
