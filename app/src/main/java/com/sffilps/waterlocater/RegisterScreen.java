@@ -162,6 +162,7 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
                             progressDialog.dismiss();
                         } else {
                             Toast.makeText(RegisterScreen.this, "Could not register... Please try again.",Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
                     }
                 });
