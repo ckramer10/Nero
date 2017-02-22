@@ -114,10 +114,12 @@ public class LoginScreen extends AppCompatActivity  {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             signInBool = true;
+                            progressDialog.dismiss();
                         } else {
                             Toast.makeText(LoginScreen.this, "Could not Sign In... Please try again.",Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
-                        progressDialog.dismiss();
+
                     }
                 });
         return signInBool;
