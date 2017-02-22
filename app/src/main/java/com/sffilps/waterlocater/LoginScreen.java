@@ -115,9 +115,12 @@ public class LoginScreen extends AppCompatActivity  {
                         if (task.isSuccessful()) {
                             signInBool = true;
                             progressDialog.dismiss();
+                            Intent i = new Intent(LoginScreen.this,HomeScreen.class);
+                            startActivity(i);
                         } else {
-                            Toast.makeText(LoginScreen.this, "Could not Sign In... Please try again.",Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
+                            Toast.makeText(LoginScreen.this, "Could not Sign In... Please try again.",Toast.LENGTH_SHORT).show();
+
                         }
 
                     }
@@ -127,11 +130,7 @@ public class LoginScreen extends AppCompatActivity  {
     }
     public void onClick(View v) {
         if (v == signInButton) {
-            if (signIn()) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, HomeScreen.class);
-                context.startActivity(intent);
-            }
+           signIn();
         } else if (v == backButton) {
             Context context = v.getContext();
             Intent intent = new Intent(context, SplashScreen.class);
