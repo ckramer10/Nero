@@ -99,6 +99,7 @@ public class HomeScreen extends AppCompatActivity {
     public void setUserName(String s) {
         userName = s;
     }
+    
 
     public void onBackPressed(){
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {

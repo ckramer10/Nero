@@ -103,11 +103,7 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (registerUser()) {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, HomeScreen.class);
-                    context.startActivity(intent);
-                }
+                registerUser();
             }
         });
 
@@ -160,9 +156,12 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
                             currentUserDB.child("name").setValue(name);
                             currentUserDB.child("role").setValue(role);
                             progressDialog.dismiss();
+                            Intent i = new Intent(RegisterScreen.this,HomeScreen.class);
+                            startActivity(i);
                         } else {
-                            Toast.makeText(RegisterScreen.this, "Could not register... Please try again.",Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
+                            Toast.makeText(RegisterScreen.this, "Could not register... Please try again.",Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });
