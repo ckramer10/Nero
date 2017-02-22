@@ -2,9 +2,12 @@ package com.sffilps.waterlocater;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,7 +56,7 @@ public class HomeScreen extends AppCompatActivity {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, SplashScreen.class);
                 context.startActivity(intent);
-                Toast.makeText(HomeScreen.this, "Signed Out.",Toast.LENGTH_LONG).show();
+                Toast.makeText(HomeScreen.this, "Signed Out.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -65,10 +68,10 @@ public class HomeScreen extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // Get user value
-                            setUserName((String)dataSnapshot.child("name").getValue());
-                            System.out.println("HAHAHAHAHAHAHA: " + dataSnapshot.child("name").getValue());
+                            setUserName((String) dataSnapshot.child("name").getValue());
                             name.setText("Name: " + userName);
                         }
+
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
 
@@ -82,8 +85,40 @@ public class HomeScreen extends AppCompatActivity {
 
 
 
+
+    public void onClick(View v) {
+        if (v == signoutButton) {
+            mAuth.getInstance().signOut();
+            Context context = v.getContext();
+            Intent intent = new Intent(context, SplashScreen.class);
+            context.startActivity(intent);
+            Toast.makeText(HomeScreen.this, "Signed Out.",Toast.LENGTH_LONG).show();
+        }
+    }
+
     public void setUserName(String s) {
         userName = s;
     }
 
+    public void onBackPressed(){
+        final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Context context = getApplicationContext();
+                        Intent intent = new Intent(context, LoginScreen.class);
+                        context.startActivity(intent);
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to sign out?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+    }
 }

@@ -43,17 +43,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +71,6 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +83,6 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
         registerPassword = (EditText) findViewById(R.id.register_password);
         registerName = (EditText) findViewById(R.id.register_name);
         spinner = (Spinner) findViewById(R.id.role_spinner);
-
 
         spinner.setOnItemSelectedListener(this);
         mAuth = FirebaseAuth.getInstance();
@@ -127,7 +119,6 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
                 context.startActivity(intent);
             }
         });
-
 
     }
 
