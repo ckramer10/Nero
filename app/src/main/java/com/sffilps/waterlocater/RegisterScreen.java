@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -159,9 +160,11 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
                             DatabaseReference currentUserDB = mDatabase.child(userID);
                             currentUserDB.child("name").setValue(name);
                             currentUserDB.child("role").setValue(role);
+                            System.out.println("SUCCESS");
                             progressDialog.dismiss();
                         } else {
                             Toast.makeText(RegisterScreen.this, "Could not register... Please try again.",Toast.LENGTH_SHORT).show();
+                            System.out.println("FAIL");
                             progressDialog.dismiss();
                         }
                     }
