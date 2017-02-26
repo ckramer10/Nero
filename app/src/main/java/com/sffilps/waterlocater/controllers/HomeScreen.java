@@ -63,8 +63,9 @@ public class HomeScreen extends AppCompatActivity {
         submitReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeScreen.this,SubmitReport.class);
-                startActivity(i);
+                Context context = v.getContext();
+                Intent intent = new Intent(context, SubmitReport.class);
+                context.startActivity(intent);
             }
         });
 

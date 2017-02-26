@@ -105,20 +105,22 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        final String uID = currentUser.getUid();
-        mDatabase.child("users").child(uID).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get user value
-                        setUserName((String) dataSnapshot.child("name").getValue());
-                    }
+        if (currentUser != null) {
+            final String uID = currentUser.getUid();
+            mDatabase.child(uID).addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // Get user value
+                            setUserName((String) dataSnapshot.child("name").getValue());
+                        }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+        }
 
         mDatabase.child("Reports").addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -133,6 +135,39 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
 
                     }
                 });
+
+        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                type = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+                type = "Bottled";
+
+            }
+        });
+
+        conditionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                condition = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                condition = "Potable";
+
+            }
+        });
     }
 
     private boolean submitReport() {
@@ -155,26 +190,13 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         stringCount = Integer.toString(counter);
     }
 
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Spinner spinner = (Spinner) parent;
-        if(spinner.getId() == R.id.typeSpinner)
-        {
-            type = parent.getItemAtPosition(position).toString();
-        }
-        else if(spinner.getId() == R.id.conditionSpinner)
-        {
-            condition = parent.getItemAtPosition(position).toString();
-        } else {
-            type = "Bottled";
-            condition = "Potable";
-        }
+
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        type = "Bottled";
-        condition = "Potable";
+
     }
 }
