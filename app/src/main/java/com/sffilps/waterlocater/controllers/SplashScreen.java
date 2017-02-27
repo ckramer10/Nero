@@ -1,4 +1,4 @@
-package com.sffilps.waterlocater;
+package com.sffilps.waterlocater.controllers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import com.sffilps.waterlocater.R;
+import com.sffilps.waterlocater.controllers.LoginScreen;
+import com.sffilps.waterlocater.controllers.RegisterScreen;
 
 /**
  * Created by ckramer on 2/11/17.
