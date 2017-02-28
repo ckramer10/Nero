@@ -139,6 +139,7 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
                             Intent i = new Intent(RegisterScreen.this,HomeScreen.class);
                             startActivity(i);
                         } else {
+
                             progressDialog.dismiss();
                             Toast.makeText(RegisterScreen.this, "Could not register... Please try again.",Toast.LENGTH_SHORT).show();
 
