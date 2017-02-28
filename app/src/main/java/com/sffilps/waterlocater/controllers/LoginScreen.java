@@ -1,43 +1,23 @@
-package com.sffilps.waterlocater;
+package com.sffilps.waterlocater.controllers;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.sffilps.waterlocater.R;
 
 
 public class LoginScreen extends AppCompatActivity  {
@@ -127,21 +107,6 @@ public class LoginScreen extends AppCompatActivity  {
                 });
         return signInBool;
 
-    }
-    public void onClick(View v) {
-        if (v == signInButton) {
-           signIn();
-        } else if (v == backButton) {
-            Context context = v.getContext();
-            Intent intent = new Intent(context, SplashScreen.class);
-            context.startActivity(intent);
-        }
-    }
-
-    public void onBackPressed(){
-        Context context = getApplicationContext();
-        Intent intent = new Intent(context, SplashScreen.class);
-        context.startActivity(intent);
     }
 }
 

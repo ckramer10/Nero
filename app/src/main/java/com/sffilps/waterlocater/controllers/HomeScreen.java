@@ -1,16 +1,13 @@
-package com.sffilps.waterlocater;
+package com.sffilps.waterlocater.controllers;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +17,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.sffilps.waterlocater.R;
 
 /**
  * Created by ckramer on 2/10/17.
@@ -30,10 +27,11 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeScreen extends AppCompatActivity {
 
     private Button signoutButton;
+    private Button submitReport;
+    private Button viewReports;
     private FirebaseAuth mAuth;
     private TextView name;
     FirebaseUser currentUser;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     DatabaseReference mDatabase;
     private String userName;
 
@@ -43,6 +41,8 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_login_home);
 
         signoutButton = (Button) findViewById(R.id.signout_button);
+        submitReport = (Button) findViewById(R.id.submitreport);
+        viewReports = (Button) findViewById(R.id.viewwsources);
         name = (TextView) findViewById(R.id.email_text);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -60,6 +60,15 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
+        submitReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, SubmitReport.class);
+                context.startActivity(intent);
+            }
+        });
+
         if (currentUser != null) {
             String email = currentUser.getEmail();
             final String uID = currentUser.getUid();
@@ -69,7 +78,7 @@ public class HomeScreen extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // Get user value
                             setUserName((String) dataSnapshot.child("name").getValue());
-                            name.setText("Name: " + userName);
+                            name.setText("Welcome, " + userName);
                         }
 
                         @Override
@@ -81,20 +90,10 @@ public class HomeScreen extends AppCompatActivity {
         } else {
             name.setText("Didn't work");
         }
+
     }
 
 
-
-
-    public void onClick(View v) {
-        if (v == signoutButton) {
-            mAuth.getInstance().signOut();
-            Context context = v.getContext();
-            Intent intent = new Intent(context, SplashScreen.class);
-            context.startActivity(intent);
-            Toast.makeText(HomeScreen.this, "Signed Out.",Toast.LENGTH_LONG).show();
-        }
-    }
 
     public void setUserName(String s) {
         userName = s;
