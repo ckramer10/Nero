@@ -121,6 +121,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
 
                     }
                 });
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Reports").addListenerForSingleValueEvent(
                 new ValueEventListener() {

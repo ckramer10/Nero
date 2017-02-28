@@ -135,7 +135,6 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
                             DatabaseReference currentUserDB = mDatabase.child(userID);
                             currentUserDB.child("name").setValue(name);
                             currentUserDB.child("role").setValue(role);
-                            System.out.println("SUCCESS");
                             progressDialog.dismiss();
                             Intent i = new Intent(RegisterScreen.this,HomeScreen.class);
                             startActivity(i);
