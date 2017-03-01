@@ -17,10 +17,22 @@ public class WaterReport {
     public String type;
     public String submittedBy;
 
+
+    /**
+     * Default Constructor
+     */
     public WaterReport() {
 
     }
 
+    /**
+     * Full Constructor
+     * @param date
+     * @param loc
+     * @param cond
+     * @param typ
+     * @param subBy
+     */
     public WaterReport(String date, String loc, String cond, String typ, String subBy) {
         this.dateTime = date;
         this.location = loc;
@@ -29,6 +41,13 @@ public class WaterReport {
         this.submittedBy = subBy;
     }
 
+    /**
+     *  Auto Generate Date Constructor
+     * @param cond
+     * @param typ
+     * @param subBy
+     * @param loc
+     */
     public WaterReport(String cond, String typ, String subBy, String loc) {
         this.dateTime = DateFormat.getDateTimeInstance().format(new Date());
         this.location = loc;
