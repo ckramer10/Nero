@@ -84,6 +84,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         typeSpinner.setSelection(0);
         conditionSpinner.setSelection(0);
 
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,23 +106,23 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        if (currentUser != null) {
-            final String uID = currentUser.getUid();
-            mDatabase.child(uID).addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            // Get user value
-                            setUserName((String) dataSnapshot.child("name").getValue());
-                        }
+        final String uID = currentUser.getUid();
+        mDatabase = mDatabase.child("Users");
+        mDatabase.child(uID).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user value
+                        setUserName((String) dataSnapshot.child("name").getValue());
+                    }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
-        }
+                    }
+                });
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Reports").addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
