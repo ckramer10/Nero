@@ -94,7 +94,9 @@ public class HomeScreen extends AppCompatActivity {
     }
 
 
-
+    /**
+     * A method to set the user name
+     */
     public void setUserName(String s) {
         userName = s;
     }
