@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +45,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     private FirebaseAuth mAuth;
     private String type;
     private String condition;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -155,6 +157,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
 
             }
         });
+
     }
 
     private boolean submitReport() {
@@ -166,7 +169,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
                         // Get user value
                         setCount(dataSnapshot.getValue().toString());
                         DatabaseReference usersRef = mDatabase.child("Reports");
-                        WaterReport report = new WaterReport(condition,type,userName,"Location");
+                        WaterReport report = new WaterReport(condition,type,userName,"33.7490, -84.3880");
                         usersRef.child(stringCount).setValue(report);
                         System.out.println(report);
                         mDatabase.child("Count").setValue(stringCount);
