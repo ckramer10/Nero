@@ -1,5 +1,7 @@
 package com.sffilps.waterlocater.model;
 
+import android.location.Location;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 import java.text.DateFormat;
 import java.util.Date;
@@ -36,5 +38,11 @@ public class WaterReport {
         this.type = typ;
         this.submittedBy = subBy;
 
+    }
+
+    @Override
+    public String toString(){
+        return "Type: " + type + " Condition: " + " Location: " + location
+                + " Submitted by: " + submittedBy + " Time: " + dateTime;
     }
 }
