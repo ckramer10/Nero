@@ -68,6 +68,10 @@ public class SplashScreen extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Sets the back button to exit the app
+     */
     public void onBackPressed(){
         Intent a = new Intent(Intent.ACTION_MAIN);
         a.addCategory(Intent.CATEGORY_HOME);

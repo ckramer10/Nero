@@ -69,6 +69,15 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
+        viewReports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, ReportListView.class);
+                context.startActivity(intent);
+            }
+        });
+
         if (currentUser != null) {
             String email = currentUser.getEmail();
             final String uID = currentUser.getUid();
@@ -94,7 +103,9 @@ public class HomeScreen extends AppCompatActivity {
     }
 
 
-
+    /**
+     * A method to set the user name
+     */
     public void setUserName(String s) {
         userName = s;
     }
