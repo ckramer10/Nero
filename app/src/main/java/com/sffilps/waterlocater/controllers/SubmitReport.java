@@ -122,20 +122,6 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
                     }
                 });
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Count").addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get user value
-                        setCount(dataSnapshot.getValue().toString());
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
 
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -172,11 +158,26 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private boolean submitReport() {
-        DatabaseReference usersRef = mDatabase.child("Reports");
-        WaterReport report = new WaterReport(condition,type,userName,"Location");
-        usersRef.child(stringCount).setValue(report);
-        System.out.println(report);
-        mDatabase.child("Count").setValue(stringCount);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Count").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user value
+                        setCount(dataSnapshot.getValue().toString());
+                        DatabaseReference usersRef = mDatabase.child("Reports");
+                        WaterReport report = new WaterReport(condition,type,userName,"Location");
+                        usersRef.child(stringCount).setValue(report);
+                        System.out.println(report);
+                        mDatabase.child("Count").setValue(stringCount);
+                        return;
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
         return true;
     }
 
