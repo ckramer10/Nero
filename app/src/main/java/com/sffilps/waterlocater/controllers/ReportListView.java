@@ -17,6 +17,7 @@ import com.sffilps.waterlocater.model.WaterReport;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class ReportListView extends AppCompatActivity {
     //UI and firebase imports
@@ -41,10 +42,17 @@ public class ReportListView extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        /*
                         Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                         for( Map.Entry<String,Object> w : map.entrySet()) {
 
                             array_of_reports.add(w.getValue());
+                        }
+                        */
+
+                        for(DataSnapshot eachReport : dataSnapshot.getChildren()) {
+                            WaterReport w = eachReport.getValue(WaterReport.class);
+                            array_of_reports.add(w);
                         }
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(

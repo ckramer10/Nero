@@ -123,12 +123,12 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
                 });
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Reports").addListenerForSingleValueEvent(
+        mDatabase.child("Count").addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
-                        setCount(dataSnapshot.child("count").getValue().toString());
+                        setCount(dataSnapshot.getValue().toString());
                     }
 
                     @Override
@@ -172,11 +172,11 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private boolean submitReport() {
-        WaterReport newReport = new WaterReport(condition,type,userName,"Null");
         DatabaseReference usersRef = mDatabase.child("Reports");
         WaterReport report = new WaterReport(condition,type,userName,"Location");
         usersRef.child(stringCount).setValue(report);
-        usersRef.child("count").setValue(stringCount);
+        System.out.println(report);
+        mDatabase.child("Count").setValue(stringCount);
         return true;
     }
 
