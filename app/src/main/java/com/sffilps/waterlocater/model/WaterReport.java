@@ -61,7 +61,7 @@ public class WaterReport {
 
     @Override
     public String toString(){
-        return "\nType: " + type + "\n\nCondition: " + condition + "\n\nLocation: " + location
+        return "\nType: " + type + "    Condition: " + condition + "\n\nLocation: " + location
                 + "\n\nSubmitted by: " + submittedBy + "\n\nTime: " + dateTime + "\n";
     }
 }

@@ -73,6 +73,8 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
 
         mGoogleApiClient.connect();
 
+        goToLocationZoom(mLatitudeText,mLongitudeText,15);
+
     }
 
     private void goToLocation(double lat, double lng) {
