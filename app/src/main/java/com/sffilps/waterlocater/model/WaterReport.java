@@ -14,7 +14,9 @@ import java.util.Date;
 public class WaterReport {
 
     public String dateTime;
-    public String location;
+    public String address;
+    public double longitude;
+    public double latitude;
     public String condition;
     public String type;
     public String submittedBy;
@@ -35,12 +37,14 @@ public class WaterReport {
      * @param typ
      * @param subBy
      */
-    public WaterReport(String date, String loc, String cond, String typ, String subBy) {
+    public WaterReport(String date, String loc, String cond, String typ, String subBy, double lat, double lng) {
         this.dateTime = date;
-        this.location = loc;
+        this.address = loc;
         this.condition = cond;
         this.type = typ;
         this.submittedBy = subBy;
+        this.latitude = lat;
+        this.longitude = lng;
     }
 
     /**
@@ -50,18 +54,36 @@ public class WaterReport {
      * @param subBy
      * @param loc
      */
-    public WaterReport(String cond, String typ, String subBy, String loc) {
+    public WaterReport(String cond, String typ, String subBy, String loc, double lat, double lng) {
         this.dateTime = DateFormat.getDateTimeInstance().format(new Date());
-        this.location = loc;
+        this.address = loc;
         this.condition = cond;
         this.type = typ;
         this.submittedBy = subBy;
+        this.longitude = lng;
+        this.latitude = lat;
 
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public double getLongitude(){
+        return longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public String getTitle() {
+        return "Type: " + type + "       " + "Condition: " + condition;
     }
 
     @Override
     public String toString(){
-        return "\nType: " + type + "    Condition: " + condition + "\n\nLocation: " + location
+        return "\nType: " + type + "    Condition: " + condition + "\n\nLocation: " + address
                 + "\n\nSubmitted by: " + submittedBy + "\n\nTime: " + dateTime + "\n";
     }
 }

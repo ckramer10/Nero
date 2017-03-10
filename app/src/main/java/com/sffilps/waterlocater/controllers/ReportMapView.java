@@ -1,6 +1,7 @@
 package com.sffilps.waterlocater.controllers;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,8 +13,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -26,19 +29,36 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.sffilps.waterlocater.R;
+import com.sffilps.waterlocater.model.WaterReport;
+
+import java.util.ArrayList;
 
 public class ReportMapView extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
+    private FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+    private ArrayList<WaterReport> array_of_reports;
     private Location mLastLocation;
-    private double mLatitudeText = 33.753746;
-    private double mLongitudeText = -84.386330;
     private LatLng ll;
     LocationRequest mLocationRequest;
+    Location currentLocation;
+    private final int TAG_CODE_PERMISSION_LOCATION = 1;
+    Marker currLocationMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +68,37 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        array_of_reports = new ArrayList<WaterReport>();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Reports");
+
+        //gets snapshot of current reports in database
+        mDatabase.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        /*
+                        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                        for( Map.Entry<String,Object> w : map.entrySet()) {
+
+                            array_of_reports.add(w.getValue());
+                        }
+                        */
+
+                        for(DataSnapshot eachReport : dataSnapshot.getChildren()) {
+                            WaterReport w = eachReport.getValue(WaterReport.class);
+                            array_of_reports.add(w);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //do nothing
+                    }
+                }
+        );
 
     }
 
@@ -63,92 +114,103 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Toast.makeText(this,"onMapReady",Toast.LENGTH_SHORT).show();
         mMap = googleMap;
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+            googleMap.setMyLocationEnabled(true);
+            googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        } else {
 
+            ActivityCompat.requestPermissions(this, new String[] {
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION },
+                    TAG_CODE_PERMISSION_LOCATION);
+        }
+
+        buildGoogleApiClient();
         mGoogleApiClient.connect();
 
-        goToLocationZoom(mLatitudeText,mLongitudeText,15);
 
     }
 
-    private void goToLocation(double lat, double lng) {
-        ll = new LatLng(lat, lng);
-        CameraUpdate update = CameraUpdateFactory.newLatLng(ll);
-        mMap.moveCamera(update);
-    }
-
-    private void goToLocationZoom(double lat, double lng, float zoom) {
-        ll = new LatLng(lat, lng);
-        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll, zoom);
-        mMap.moveCamera(update);
-    }
-
-    public void geoLocate(View view) {
-        Geocoder gc = new Geocoder(this);
-
-    }
-
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
+    protected synchronized void buildGoogleApiClient() {
+        Toast.makeText(this, "buildGoogleApiClient", Toast.LENGTH_SHORT).show();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        mLocationRequest = LocationRequest.create();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(1000);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        Toast.makeText(this,"onConnected",Toast.LENGTH_SHORT).show();
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+            currentLocation = LocationServices.FusedLocationApi.getLastLocation(
+                    mGoogleApiClient);
         }
+
+        if (mLastLocation != null) {
+            //place marker at current position
+            //mGoogleMap.clear();
+            ll = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(ll);
+            markerOptions.title("Current Position");
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+            currLocationMarker = mMap.addMarker(markerOptions);
+        }
+
+        for (int i = 0; i < array_of_reports.size(); i++) {
+            WaterReport reportToAdd = array_of_reports.get(i);
+            MarkerOptions markerOptions = new MarkerOptions();
+            LatLng markerLL = new LatLng(reportToAdd.getLatitude(),reportToAdd.getLongitude());
+            markerOptions.position(markerLL);
+            markerOptions.title(reportToAdd.getTitle());
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+            mMap.addMarker(markerOptions);
+        }
+
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(5000); //5 seconds
+        mLocationRequest.setFastestInterval(3000); //3 seconds
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
+        Toast.makeText(this,"Connection Suspended.",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        Toast.makeText(this,"Connection Failed.",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        if(location == null) {
-            Toast.makeText(this,"Can't get current location.", Toast.LENGTH_LONG).show();
-        } else {
-            LatLng ll = new LatLng(location.getLatitude(),location.getLongitude());
-            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll,15);
-            mMap.animateCamera(update);
+        if (currLocationMarker != null) {
+            currLocationMarker.remove();
         }
+        ll = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(ll);
+        markerOptions.title("Current Position");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        //currLocationMarker = mMap.addMarker(markerOptions);
+
+        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
+
+        //zoom to current position:
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ll,15));
     }
 }
