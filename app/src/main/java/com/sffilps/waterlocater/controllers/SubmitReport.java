@@ -2,15 +2,21 @@ package com.sffilps.waterlocater.controllers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.identity.intents.Address;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.sffilps.waterlocater.R;
 import com.sffilps.waterlocater.model.WaterReport;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +42,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     private Button submitButton;
     private Button cancelButton;
     private Spinner typeSpinner;
+    private EditText inputAddress;
     private Spinner conditionSpinner;
     private int counter;
     private String stringCount;
@@ -44,6 +52,11 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     private FirebaseAuth mAuth;
     private String type;
     private String condition;
+    private View submit;
+    private double currentLong;
+    private double currentLat;
+    private LatLng ll;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +69,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         cancelButton = (Button) findViewById(R.id.cancelButton);
         typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
         conditionSpinner = (Spinner) findViewById(R.id.conditionSpinner);
+        inputAddress = (EditText) findViewById(R.id.addressText);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         List<String> types = new ArrayList<String>();
@@ -88,6 +102,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                submit = v;
                 if (submitReport()) {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, HomeScreen.class);
@@ -155,9 +170,16 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
 
             }
         });
+
     }
 
     private boolean submitReport() {
+
+        if (TextUtils.isEmpty(inputAddress.getText().toString().trim())) {
+            Toast.makeText(this, "Please enter a valid address or POI before submitting.",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Count").addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -166,7 +188,10 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
                         // Get user value
                         setCount(dataSnapshot.getValue().toString());
                         DatabaseReference usersRef = mDatabase.child("Reports");
-                        WaterReport report = new WaterReport(condition,type,userName,"Location");
+                        ll = getLocationFromAddress(submit.getContext(),inputAddress.getText().toString().trim());
+                        currentLat = ll.latitude;
+                        currentLong = ll.longitude;
+                        WaterReport report = new WaterReport(condition,type,userName,inputAddress.getText().toString().trim(),currentLat,currentLong);
                         usersRef.child(stringCount).setValue(report);
                         System.out.println(report);
                         mDatabase.child("Count").setValue(stringCount);
@@ -200,5 +225,38 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    /**
+     *
+     * Gets Lat and Long from Address Entered
+     * @param context Context of view
+     * @param strAddress Address
+     * @return Lat and Long of Address
+     */
+    public LatLng getLocationFromAddress(Context context,String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<android.location.Address> address;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+            android.location.Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
     }
 }

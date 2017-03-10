@@ -28,7 +28,8 @@ public class HomeScreen extends AppCompatActivity {
 
     private Button signoutButton;
     private Button submitReport;
-    private Button viewReports;
+    private Button viewReportsList;
+    private Button viewReportsMap;
     private FirebaseAuth mAuth;
     private TextView name;
     FirebaseUser currentUser;
@@ -42,7 +43,8 @@ public class HomeScreen extends AppCompatActivity {
 
         signoutButton = (Button) findViewById(R.id.signout_button);
         submitReport = (Button) findViewById(R.id.submitreport);
-        viewReports = (Button) findViewById(R.id.viewwsources);
+        viewReportsList = (Button) findViewById(R.id.viewwsourceslist);
+        viewReportsMap = (Button) findViewById(R.id.viewwsourcesmap);
         name = (TextView) findViewById(R.id.email_text);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -69,11 +71,20 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
-        viewReports.setOnClickListener(new View.OnClickListener() {
+        viewReportsList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, ReportListView.class);
+                context.startActivity(intent);
+            }
+        });
+
+        viewReportsMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, ReportMapView.class);
                 context.startActivity(intent);
             }
         });
@@ -110,6 +121,7 @@ public class HomeScreen extends AppCompatActivity {
         userName = s;
     }
     
+
 
     public void onBackPressed(){
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
