@@ -53,18 +53,17 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private ArrayList<WaterReport> array_of_reports;
-    private Location mLastLocation;
     private LatLng ll;
-    LocationRequest mLocationRequest;
-    Location currentLocation;
+    private LocationRequest mLocationRequest;
     private final int TAG_CODE_PERMISSION_LOCATION = 1;
-    Marker currLocationMarker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_map_view);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -79,20 +78,11 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        /*
-                        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                        for( Map.Entry<String,Object> w : map.entrySet()) {
-
-                            array_of_reports.add(w.getValue());
-                        }
-                        */
-
                         for(DataSnapshot eachReport : dataSnapshot.getChildren()) {
                             WaterReport w = eachReport.getValue(WaterReport.class);
                             array_of_reports.add(w);
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         //do nothing
@@ -114,7 +104,6 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Toast.makeText(this,"onMapReady",Toast.LENGTH_SHORT).show();
         mMap = googleMap;
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
@@ -133,12 +122,9 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
 
         buildGoogleApiClient();
         mGoogleApiClient.connect();
-
-
     }
 
     protected synchronized void buildGoogleApiClient() {
-        Toast.makeText(this, "buildGoogleApiClient", Toast.LENGTH_SHORT).show();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -148,24 +134,10 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Toast.makeText(this,"onConnected",Toast.LENGTH_SHORT).show();
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
                         PackageManager.PERMISSION_GRANTED) {
-            currentLocation = LocationServices.FusedLocationApi.getLastLocation(
-                    mGoogleApiClient);
-        }
-
-        if (mLastLocation != null) {
-            //place marker at current position
-            //mGoogleMap.clear();
-            ll = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(ll);
-            markerOptions.title("Current Position");
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-            currLocationMarker = mMap.addMarker(markerOptions);
         }
 
         for (int i = 0; i < array_of_reports.size(); i++) {
@@ -174,7 +146,8 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
             LatLng markerLL = new LatLng(reportToAdd.getLatitude(),reportToAdd.getLongitude());
             markerOptions.position(markerLL);
             markerOptions.title(reportToAdd.getTitle());
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+            markerOptions.snippet(reportToAdd.getSnippet());
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
             mMap.addMarker(markerOptions);
         }
 
@@ -198,18 +171,8 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
 
     @Override
     public void onLocationChanged(Location location) {
-        if (currLocationMarker != null) {
-            currLocationMarker.remove();
-        }
+
         ll = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(ll);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        //currLocationMarker = mMap.addMarker(markerOptions);
-
-        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
-
         //zoom to current position:
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ll,15));
     }

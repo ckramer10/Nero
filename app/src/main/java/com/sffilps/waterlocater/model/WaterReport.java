@@ -78,7 +78,11 @@ public class WaterReport {
     }
 
     public String getTitle() {
-        return "Type: " + type + "       " + "Condition: " + condition;
+        return address;
+    }
+
+    public String getSnippet() {
+        return "Type: " + type + "    " + "Condition: " + condition;
     }
 
     @Override
