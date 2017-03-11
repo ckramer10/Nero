@@ -47,11 +47,13 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     private int counter;
     private String stringCount;
     private String userName;
-    FirebaseUser currentUser;
-    DatabaseReference mDatabase;
+    private FirebaseUser currentUser;
+    private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private String mapName;
     private String type;
     private String condition;
+    private boolean isNull;
     private View submit;
     private double currentLong;
     private double currentLat;
@@ -71,6 +73,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         conditionSpinner = (Spinner) findViewById(R.id.conditionSpinner);
         inputAddress = (EditText) findViewById(R.id.addressText);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        isNull = false;
 
         List<String> types = new ArrayList<String>();
         types.add("Bottled");
@@ -175,8 +178,17 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
 
     private boolean submitReport() {
 
+        isNull = false;
+
         if (TextUtils.isEmpty(inputAddress.getText().toString().trim())) {
-            Toast.makeText(this, "Please enter a valid address or POI before submitting.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter a valid address or POI before submitting.",Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        ll = getLocationFromAddress(submit.getContext(),inputAddress.getText().toString().trim());
+
+        if (isNull == true) {
+            Toast.makeText(this, "Couldn't find address. Please try again.",Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -188,10 +200,9 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
                         // Get user value
                         setCount(dataSnapshot.getValue().toString());
                         DatabaseReference usersRef = mDatabase.child("Reports");
-                        ll = getLocationFromAddress(submit.getContext(),inputAddress.getText().toString().trim());
                         currentLat = ll.latitude;
                         currentLong = ll.longitude;
-                        WaterReport report = new WaterReport(condition,type,userName,inputAddress.getText().toString().trim(),currentLat,currentLong);
+                        WaterReport report = new WaterReport(condition,type,userName,mapName,currentLat,currentLong);
                         usersRef.child(stringCount).setValue(report);
                         System.out.println(report);
                         mDatabase.child("Count").setValue(stringCount);
@@ -243,18 +254,28 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         try {
             // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
+
             if (address == null) {
+                isNull = true;
                 return null;
             }
-            android.location.Address location = address.get(0);
-            location.getLatitude();
-            location.getLongitude();
 
-            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+            if (address.size() != 0) {
+                android.location.Address location = address.get(0);
+                location.getLatitude();
+                location.getLongitude();
+                mapName = location.getFeatureName();
+                p1 = new LatLng(location.getLatitude(), location.getLongitude());
+            } else {
+                isNull = true;
+                return null;
+            }
+
 
         } catch (IOException ex) {
-
             ex.printStackTrace();
+            isNull = true;
+            return null;
         }
 
         return p1;
