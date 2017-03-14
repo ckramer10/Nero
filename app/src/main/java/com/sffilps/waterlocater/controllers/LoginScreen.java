@@ -112,9 +112,6 @@ public class LoginScreen extends AppCompatActivity  {
                                             // Get user value
                                             role = ((String) dataSnapshot.child("role").getValue());
                                             Toast.makeText(LoginScreen.this,role,Toast.LENGTH_SHORT).show();
-
-                                            signInBool = true;
-                                            progressDialog.dismiss();
                                             Intent i = new Intent(LoginScreen.this,HomeScreen.class);
                                             Intent i2 = new Intent(LoginScreen.this,HomeScreenWorker.class);
 
@@ -123,6 +120,10 @@ public class LoginScreen extends AppCompatActivity  {
                                             } else {
                                                 startActivity(i);
                                             }
+                                            
+                                            signInBool = true;
+                                            progressDialog.dismiss();
+
 
                                         }
 

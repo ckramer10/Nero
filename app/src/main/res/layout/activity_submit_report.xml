@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" android:background="@android:color/holo_blue_dark">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
         android:layout_marginTop="40dp"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
@@ -14,21 +15,24 @@
         android:text="Submit Water Report"/>
 
     <TextView
-    android:layout_width="match_parent"
-    android:text="Type of water source:"
-    android:layout_marginTop="30dp"
-    android:layout_marginLeft="5dp"
-    android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:text="Type of water source:"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="wrap_content" />
 
     <Spinner
         android:layout_width="match_parent"
         android:id="@+id/typeSpinner"
+        android:textColor="@android:color/white"
         android:layout_marginTop="15dp"
         android:layout_height="40dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:text="Condition of water source:"
+        android:textColor="@android:color/white"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="5dp"
         android:layout_height="wrap_content" />
@@ -36,12 +40,14 @@
     <Spinner
         android:layout_width="match_parent"
         android:id="@+id/conditionSpinner"
+        android:textColor="@android:color/white"
         android:layout_marginTop="15dp"
         android:layout_height="40dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:text="Address or Place of Interest:"
+        android:textColor="@android:color/white"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="5dp"
         android:layout_height="wrap_content" />
@@ -49,12 +55,14 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
+        android:textColor="@android:color/white"
         android:id="@+id/addressText"
         android:layout_height="wrap_content" />
 
     <Button
         android:layout_width="match_parent"
         android:text="Sumbit report"
+        android:background="@android:color/white"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:id="@+id/submitReportButton"
@@ -64,9 +72,10 @@
     <Button
         android:layout_width="match_parent"
         android:text="Cancel"
+        android:background="@android:color/white"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/cancelButton"
         android:layout_height="wrap_content" />
 
