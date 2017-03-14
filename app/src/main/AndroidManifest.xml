@@ -52,7 +52,17 @@
             android:name=".controllers.SubmitReport"
             android:label="Nero"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".controllers.ReportListView" />
+        <activity
+            android:name=".controllers.HomeScreenWorker"
+            android:label="Nero"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".controllers.QualityReportHome"
+            android:label="Nero"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.ReportListView"
+            android:label="Nero"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

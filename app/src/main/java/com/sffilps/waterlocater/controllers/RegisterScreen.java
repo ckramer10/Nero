@@ -137,9 +137,13 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
                             currentUserDB.child("role").setValue(role);
                             progressDialog.dismiss();
                             Intent i = new Intent(RegisterScreen.this,HomeScreen.class);
-                            startActivity(i);
+                            Intent i2 = new Intent(RegisterScreen.this,HomeScreenWorker.class);
+                            if (role == "Administrator" || role == "Manager" || role == "Worker") {
+                                startActivity(i2);
+                            } else {
+                                startActivity(i);
+                            }
                         } else {
-
                             progressDialog.dismiss();
                             Toast.makeText(RegisterScreen.this, "Could not register... Please try again.",Toast.LENGTH_SHORT).show();
 

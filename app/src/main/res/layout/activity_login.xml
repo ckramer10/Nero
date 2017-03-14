@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" android:background="@android:color/holo_blue_dark">
 
     <TextView
         android:layout_width="match_parent"
@@ -11,6 +11,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="100dp"
+        android:textColor="@android:color/white"
         android:textSize="35dp"
         android:layout_height="wrap_content" />
 
@@ -20,6 +21,9 @@
         android:id="@+id/login_email"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="50dp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:textColorHint="@android:color/white"
         android:layout_marginRight="15dp"
         android:hint="email"
         android:layout_height="wrap_content" />
@@ -31,6 +35,9 @@
         android:inputType="textPassword"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:textColorHint="@android:color/white"
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content" />
 
@@ -38,6 +45,7 @@
         android:layout_width="match_parent"
         android:text="Login"
         android:id="@+id/signIn_Button"
+        android:background="@android:color/white"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="70dp"
@@ -49,6 +57,7 @@
         android:id="@+id/back_button"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
+        android:background="@android:color/white"
         android:layout_marginTop="15dp"
         android:layout_height="wrap_content" />
 

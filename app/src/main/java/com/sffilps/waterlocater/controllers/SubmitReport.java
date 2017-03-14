@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -58,6 +59,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     private double currentLong;
     private double currentLat;
     private LatLng ll;
+    private String role;
     private GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -99,7 +101,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         conditionSpinner.setAdapter(conditionsDataAdapter);
 
         typeSpinner.setSelection(0);
-        conditionSpinner.setSelection(0);
+        conditionSpinner.setSelection(3);
 
 
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -118,9 +120,14 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, HomeScreen.class);
-                context.startActivity(intent);
+                Intent i = new Intent(SubmitReport.this,HomeScreen.class);
+                Intent i2 = new Intent(SubmitReport.this,HomeScreenWorker.class);
+
+                if (role.equals("Administrator") || role.equals("Manager") || role.equals("Worker")) {
+                    startActivity(i2);
+                } else {
+                    startActivity(i);
+                }
             }
         });
 
@@ -132,6 +139,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         setUserName((String) dataSnapshot.child("name").getValue());
+                        role = (String) dataSnapshot.child("role").getValue();
                     }
 
                     @Override
