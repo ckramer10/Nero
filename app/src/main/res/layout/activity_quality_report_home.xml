@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" android:background="@android:color/holo_blue_dark">
 
 
     <TextView
@@ -10,6 +10,7 @@
         android:textSize="40dp"
         android:layout_marginTop="60dp"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
         android:layout_height="wrap_content" />
 
 
@@ -19,6 +20,7 @@
         android:textAlignment="center"
         android:textSize="20dp"
         android:text="Quality Reports"
+        android:textColor="@android:color/white"
         android:layout_marginTop="80dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -30,6 +32,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:background="@android:color/white"
         android:text="View Quality Reports"
         android:id="@+id/viewQualityReports" />
 
@@ -39,6 +42,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:background="@android:color/white"
         android:text="Submit Quality Report"
         android:id="@+id/submitQualityReport" />
 </LinearLayout>

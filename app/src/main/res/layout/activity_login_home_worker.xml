@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" android:background="@android:color/holo_blue_dark">
 
 
     <TextView
         android:layout_width="match_parent"
         android:text="Nero"
+        android:textColor="@android:color/white"
         android:textSize="40dp"
         android:layout_marginTop="60dp"
         android:textAlignment="center"
@@ -18,7 +19,7 @@
         android:id="@+id/email_text"
         android:textAlignment="center"
         android:textSize="20dp"
-        android:text="Welcome"
+        android:textColor="@android:color/white"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -28,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@android:color/white"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:text="View Water Sources (Map)"
@@ -38,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
+        android:background="@android:color/white"
         android:layout_marginRight="15dp"
         android:text="View Water Sources (List)"
         android:id="@+id/viewwsourceslist" />
@@ -46,6 +49,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
+        android:background="@android:color/white"
         android:layout_marginRight="15dp"
         android:text="Submit Water Report"
         android:id="@+id/submitreport"
@@ -56,6 +60,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:background="@android:color/white"
         android:text="View Quality Reports"
         android:id="@+id/viewQualityReports"
         android:layout_height="wrap_content" />
@@ -68,6 +73,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:background="@android:color/white"
         android:text="Sign Out"
         android:id="@+id/signout_button"/>
 

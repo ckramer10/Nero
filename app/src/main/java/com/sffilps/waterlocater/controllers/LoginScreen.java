@@ -111,11 +111,10 @@ public class LoginScreen extends AppCompatActivity  {
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             // Get user value
                                             role = ((String) dataSnapshot.child("role").getValue());
-                                            Toast.makeText(LoginScreen.this,role,Toast.LENGTH_SHORT).show();
                                             Intent i = new Intent(LoginScreen.this,HomeScreen.class);
                                             Intent i2 = new Intent(LoginScreen.this,HomeScreenWorker.class);
 
-                                            if (role == "Administrator" || role == "Manager" || role == "Worker") {
+                                            if (role.equals("Administrator") || role.equals("Manager") || role.equals("Worker")) {
                                                 startActivity(i2);
                                             } else {
                                                 startActivity(i);
