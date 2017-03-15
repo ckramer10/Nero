@@ -26,10 +26,10 @@ import com.sffilps.waterlocater.R;
 
 public class HomeScreen extends AppCompatActivity {
 
-    private Button signoutButton;
     private Button submitReport;
     private Button viewReportsList;
     private Button viewReportsMap;
+    private Button settings;
     private FirebaseAuth mAuth;
     private TextView name;
     FirebaseUser currentUser;
@@ -41,7 +41,7 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_home);
 
-        signoutButton = (Button) findViewById(R.id.signout_button);
+        settings = (Button) findViewById(R.id.settings);
         submitReport = (Button) findViewById(R.id.submitreport);
         viewReportsList = (Button) findViewById(R.id.viewwsourceslist);
         viewReportsMap = (Button) findViewById(R.id.viewwsourcesmap);
@@ -51,14 +51,12 @@ public class HomeScreen extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
 
-        signoutButton.setOnClickListener(new View.OnClickListener() {
+        settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.getInstance().signOut();
                 Context context = v.getContext();
-                Intent intent = new Intent(context, SplashScreen.class);
+                Intent intent = new Intent(context, Settings.class);
                 context.startActivity(intent);
-                Toast.makeText(HomeScreen.this, "Signed Out.", Toast.LENGTH_LONG).show();
             }
         });
 

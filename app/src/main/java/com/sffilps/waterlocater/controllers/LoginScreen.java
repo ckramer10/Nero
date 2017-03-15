@@ -144,5 +144,10 @@ public class LoginScreen extends AppCompatActivity  {
         return signInBool;
 
     }
+    public void onBackPressed() {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, SplashScreen.class);
+        context.startActivity(intent);
+    }
 }
 
