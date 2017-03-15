@@ -13,10 +13,11 @@
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
+         location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
@@ -47,29 +48,30 @@
         <activity
             android:name=".controllers.RegisterScreen"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controllers.SubmitReport"
             android:label="Nero"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controllers.HomeScreenWorker"
             android:label="Nero"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".controllers.QualityReportHome"
             android:label="Nero"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".controllers.ReportListView"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controllers.ReportListView"
             android:label="Nero"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -77,7 +79,9 @@
 
         <activity
             android:name=".controllers.ReportMapView"
-            android:label="@string/title_activity_report_map_view"></activity>
+            android:label="@string/title_activity_report_map_view" />
+        <activity android:name=".controllers.Settings" />
+        <activity android:name=".controllers.EditProfile"></activity>
     </application>
 
 </manifest>
