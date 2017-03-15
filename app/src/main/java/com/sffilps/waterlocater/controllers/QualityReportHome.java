@@ -40,8 +40,5 @@ public class QualityReportHome extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-
-
-
     }
 }

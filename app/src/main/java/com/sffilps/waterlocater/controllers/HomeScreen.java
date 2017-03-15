@@ -120,9 +120,11 @@ public class HomeScreen extends AppCompatActivity {
     public void setUserName(String s) {
         userName = s;
     }
-    
 
 
+    /**
+     * Method that prompts the user if they want to sign out,
+     */
     public void onBackPressed(){
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override

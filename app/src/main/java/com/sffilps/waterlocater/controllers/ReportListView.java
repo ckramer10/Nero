@@ -38,7 +38,6 @@ public class ReportListView extends AppCompatActivity {
         setContentView(R.layout.activity_report_list_view);
         reportList = (ListView) findViewById(R.id.report_list);
         array_of_reports = new ArrayList();
-
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reports");
@@ -65,10 +64,8 @@ public class ReportListView extends AppCompatActivity {
                                 ReportListView.this,
                                 android.R.layout.simple_list_item_1,
                                 array_of_reports );
-
                         reportList.setAdapter(arrayAdapter);
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         //do nothing
@@ -78,6 +75,12 @@ public class ReportListView extends AppCompatActivity {
 
     }
 
+    /**
+     * Gets Location from string inputted by the user
+     * @param context
+     * @param strAddress string from user
+     * @return LatLng of input location or null if not found
+     */
     public LatLng getLocationFromAddress(Context context, String strAddress) {
 
         Geocoder coder = new Geocoder(context);

@@ -124,6 +124,9 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
         mGoogleApiClient.connect();
     }
 
+    /**
+     * This method builds the google API Client for location services
+     */
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -171,7 +174,6 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
 
     @Override
     public void onLocationChanged(Location location) {
-
         ll = new LatLng(location.getLatitude(), location.getLongitude());
         //zoom to current position:
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ll,15));
