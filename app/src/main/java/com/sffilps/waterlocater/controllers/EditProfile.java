@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -120,7 +121,12 @@ public class EditProfile extends AppCompatActivity {
                                 }
                             }
                         });
+                Context context = v.getContext();
+                Intent intent = new Intent(context, Settings.class);
+                context.startActivity(intent);
                 progressDialog.dismiss();
+                Toast.makeText(EditProfile.this, "Profile has been updated",Toast.LENGTH_SHORT).show();
+
             }
         });
     }
