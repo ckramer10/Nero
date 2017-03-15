@@ -165,4 +165,10 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
     public void onNothingSelected(AdapterView<?> parent) {
         role = "User";
     }
+
+    public void onBackPressed() {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, SplashScreen.class);
+        context.startActivity(intent);
+    }
 }
