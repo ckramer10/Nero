@@ -59,6 +59,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     private double currentLong;
     private double currentLat;
     private LatLng ll;
+    private String role;
     private GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -119,9 +120,14 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, HomeScreen.class);
-                context.startActivity(intent);
+                Intent i = new Intent(SubmitReport.this,HomeScreen.class);
+                Intent i2 = new Intent(SubmitReport.this,HomeScreenWorker.class);
+
+                if (role.equals("Administrator") || role.equals("Manager") || role.equals("Worker")) {
+                    startActivity(i2);
+                } else {
+                    startActivity(i);
+                }
             }
         });
 
@@ -133,6 +139,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user value
                         setUserName((String) dataSnapshot.child("name").getValue());
+                        role = (String) dataSnapshot.child("role").getValue();
                     }
 
                     @Override
