@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sffilps.waterlocater.R;
+import com.sffilps.waterlocater.model.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,8 +104,8 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
      * @return boolean if successful
      */
     private boolean registerUser() {
-        String email = registerEmail.getText().toString().trim();
-        String password = registerPassword.getText().toString().trim();
+        final String email = registerEmail.getText().toString().trim();
+        final String password = registerPassword.getText().toString().trim();
         final String name = registerName.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
@@ -132,9 +133,9 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
                         if (task.isSuccessful()) {
                             registerBool = true;
                             String userID = mAuth.getCurrentUser().getUid();
+                            Person newUser = new Person(name, email, role, userID, "");
                             DatabaseReference currentUserDB = mDatabase.child(userID);
-                            currentUserDB.child("name").setValue(name);
-                            currentUserDB.child("role").setValue(role);
+                            currentUserDB.setValue(newUser);
                             progressDialog.dismiss();
                             Intent i = new Intent(RegisterScreen.this,HomeScreen.class);
                             Intent i2 = new Intent(RegisterScreen.this,HomeScreenWorker.class);

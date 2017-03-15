@@ -3,13 +3,22 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="@android:color/holo_blue_dark">
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="285dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/white"
+        android:text="Settings"
+        android:id="@+id/settings" />
 
     <TextView
         android:layout_width="match_parent"
         android:text="Nero"
         android:textSize="40dp"
         android:textColor="@android:color/white"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="00dp"
         android:textAlignment="center"
         android:layout_height="wrap_content" />
 
@@ -56,13 +65,4 @@
         android:id="@+id/submitreport"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="15dp"
-        android:background="@android:color/white"
-        android:layout_marginRight="15dp"
-        android:text="Sign Out"
-        android:id="@+id/signout_button"/>
 </LinearLayout>
