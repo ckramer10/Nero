@@ -12,18 +12,30 @@ import com.sffilps.waterlocater.R;
 public class SubmitQualityReportOptions extends AppCompatActivity {
 
     public Button viewList;
+    public Button viewMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_quality_report_options);
 
         viewList = (Button) findViewById(R.id.list_option);
+        viewMap = (Button) findViewById(R.id.map_option);
 
         viewList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, SubmitQualityList.class);
+                context.startActivity(intent);
+            }
+        });
+
+        viewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, SubmitQualityMap.class);
                 context.startActivity(intent);
             }
         });

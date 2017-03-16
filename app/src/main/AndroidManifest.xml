@@ -84,7 +84,8 @@
         <activity android:name=".controllers.EditProfile" />
         <activity android:name=".controllers.SubmitQualityReportOptions" />
         <activity android:name=".controllers.SubmitQualityList" />
-        <activity android:name=".controllers.SubmitQualityReport"></activity>
+        <activity android:name=".controllers.SubmitQualityReport" />
+        <activity android:name=".controllers.SubmitQualityMap"></activity>
     </application>
 
 </manifest>

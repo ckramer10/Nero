@@ -55,7 +55,7 @@ public class SubmitQualityReport extends AppCompatActivity {
 
         address = (TextView) findViewById(R.id.textView4);
 
-        String s = "Submitting Quality Report at: " + reportAddress;
+        String s = "Submitting Quality Report at: " + report.getAddress();
 
         address.setText(s);
         submitQuality = (Button) findViewById(R.id.submit_quality_report);
@@ -103,6 +103,7 @@ public class SubmitQualityReport extends AppCompatActivity {
                                         latitude, conditionSpinner.getItemAtPosition(conditionSpinner.getSelectedItemPosition()).toString(),
                                         virusPPM.getText().toString(), contaminantPPM.getText().toString());
                                 report.addPurityReport(purityReport);
+                                mDatabase = FirebaseDatabase.getInstance().getReference();
                                 mDatabase.child("Reports").child(report.getKey()).setValue(report);
                             }
                             @Override
@@ -119,16 +120,9 @@ public class SubmitQualityReport extends AppCompatActivity {
         cancelQuality.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, SubmitQualityList.class);
-                context.startActivity(intent);
+                onBackPressed();
             }
         });
 
-    }
-    public void onBackPressed() {
-        Context context = getApplicationContext();
-        Intent intent = new Intent(context, SubmitQualityList.class);
-        context.startActivity(intent);
     }
 }
