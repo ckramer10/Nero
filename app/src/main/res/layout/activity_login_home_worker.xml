@@ -68,7 +68,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="@android:color/white"
-        android:text="View Quality Reports"
+        android:text="Quality Reports"
         android:id="@+id/viewQualityReports"
         android:layout_height="wrap_content" />
 

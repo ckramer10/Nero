@@ -81,7 +81,10 @@
             android:name=".controllers.ReportMapView"
             android:label="@string/title_activity_report_map_view" />
         <activity android:name=".controllers.Settings" />
-        <activity android:name=".controllers.EditProfile"></activity>
+        <activity android:name=".controllers.EditProfile" />
+        <activity android:name=".controllers.SubmitQualityReportOptions" />
+        <activity android:name=".controllers.SubmitQualityList" />
+        <activity android:name=".controllers.SubmitQualityReport"></activity>
     </application>
 
 </manifest>

@@ -37,11 +37,19 @@ public class QualityReportHome extends AppCompatActivity {
 
         viewQualityReports = (Button) findViewById(R.id.viewQualityReports);
         submitQualityReport = (Button) findViewById(R.id.submitQualityReport);
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
-
+        submitQualityReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, SubmitQualityReportOptions.class);
+                context.startActivity(intent);
+            }
+        });
 
     }
 }

@@ -4,6 +4,7 @@ import android.location.Location;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -20,13 +21,15 @@ public class WaterReport {
     public String condition;
     public String type;
     public String submittedBy;
+    public ArrayList<PurityReport> purityList;
+    public String key;
 
 
     /**
      * Default Constructor
      */
     public WaterReport() {
-
+        this.purityList = new ArrayList<>();
     }
 
     /**
@@ -38,6 +41,7 @@ public class WaterReport {
      * @param subBy
      */
     public WaterReport(String date, String loc, String cond, String typ, String subBy, double lat, double lng) {
+        this.purityList = new ArrayList<>();
         this.dateTime = date;
         this.address = loc;
         this.condition = cond;
@@ -56,6 +60,7 @@ public class WaterReport {
      */
     public WaterReport(String cond, String typ, String subBy, String loc, double lat, double lng) {
         this.dateTime = DateFormat.getDateTimeInstance().format(new Date());
+        this.purityList = new ArrayList<>();
         this.address = loc;
         this.condition = cond;
         this.type = typ;
@@ -64,6 +69,23 @@ public class WaterReport {
         this.latitude = lat;
 
     }
+
+    public void addPurityReport(PurityReport newReport) {
+        purityList.add(newReport);
+    }
+
+    public ArrayList<PurityReport> getPurityList() {
+        return purityList;
+    }
+
+    public void setKey (String key) {
+        this.key = key;
+    }
+
+    public String getKey () {
+        return key;
+    }
+
 
     public String getAddress() {
         return address;

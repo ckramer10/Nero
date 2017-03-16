@@ -93,7 +93,6 @@ public class EditProfile extends AppCompatActivity {
                                 break;
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
