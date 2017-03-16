@@ -80,8 +80,10 @@
         <activity
             android:name=".controllers.ReportMapView"
             android:label="@string/title_activity_report_map_view" />
-        <activity android:name=".controllers.Settings" />
-        <activity android:name=".controllers.EditProfile"></activity>
+        <activity android:name=".controllers.Settings"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.EditProfile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

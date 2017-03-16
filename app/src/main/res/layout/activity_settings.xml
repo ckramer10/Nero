@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" android:background="@android:color/holo_blue_dark">
 
     <TextView
         android:layout_width="match_parent"
@@ -9,23 +9,26 @@
         android:layout_marginTop="60dp"
         android:textSize="40dp"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
         android:layout_height="wrap_content" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="120dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:background="@android:color/white"
         android:text="Edit Profile"
         android:id="@+id/editprofile"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="220dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:background="@android:color/white"
         android:text="Sign Out"
         android:id="@+id/signout_button"/>
 
