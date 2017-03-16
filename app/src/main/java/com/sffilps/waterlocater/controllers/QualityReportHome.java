@@ -52,4 +52,9 @@ public class QualityReportHome extends AppCompatActivity {
         });
 
     }
+    public void onBackPressed() {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, HomeScreenWorker.class);
+        context.startActivity(intent);
+    }
 }
