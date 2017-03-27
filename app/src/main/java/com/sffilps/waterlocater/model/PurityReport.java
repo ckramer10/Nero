@@ -34,4 +34,11 @@ public class PurityReport {
         this.virusPPM = virusPPM;
         this.contaminantPPM = contaminantPPM;
     }
+
+    public String toString() {
+        return "\nReport Number: " + purityReportNumber + "    Condition: " + condition
+                + "\n\nVirus PPM: " + virusPPM +  "   Contaminant PPM: " + contaminantPPM
+                + "\n\nLocation: " + address
+                + "\n\nSubmitted by: " + name + "\n\nTime: " + dateTime + "\n";
+    }
 }

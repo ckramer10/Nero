@@ -85,7 +85,8 @@
         <activity android:name=".controllers.SubmitQualityReportOptions" />
         <activity android:name=".controllers.SubmitQualityList" />
         <activity android:name=".controllers.SubmitQualityReport" />
-        <activity android:name=".controllers.SubmitQualityMap"></activity>
+        <activity android:name=".controllers.SubmitQualityMap" />
+        <activity android:name=".controllers.PurityReportListView"></activity>
     </application>
 
 </manifest>

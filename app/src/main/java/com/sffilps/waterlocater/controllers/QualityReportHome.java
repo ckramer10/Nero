@@ -42,6 +42,32 @@ public class QualityReportHome extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
+        viewQualityReports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+
+                final String uID = currentUser.getUid();
+                mDatabase.child(uID).addListenerForSingleValueEvent(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                // Get user value
+                                String role = ((String) dataSnapshot.child("role").getValue());
+                                if (role.equals("Administrator") || role.equals("Manager")) {
+                                    Intent intent = new Intent(QualityReportHome.this, PurityReportListView.class);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(QualityReportHome.this, "You must be a manager or admin for this function",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {}
+                        });
+            }
+        });
+
         submitQualityReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
