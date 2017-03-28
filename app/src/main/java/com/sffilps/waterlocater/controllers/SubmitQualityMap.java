@@ -106,6 +106,7 @@ public class SubmitQualityMap extends FragmentActivity implements GoogleMap.OnMa
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
+     * @param googleMap the google map used to manipulate it
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -129,6 +130,9 @@ public class SubmitQualityMap extends FragmentActivity implements GoogleMap.OnMa
         mGoogleApiClient.connect();
     }
 
+    /**
+     * builds google api client
+     */
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -198,6 +202,9 @@ public class SubmitQualityMap extends FragmentActivity implements GoogleMap.OnMa
             return true;
     }
 
+    /**
+     * makes back button go to options
+     */
     public void onBackPressed() {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, SubmitQualityReportOptions.class);

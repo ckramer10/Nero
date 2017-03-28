@@ -125,7 +125,7 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
 
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
-
+        //creates the user and directs to correct homepage
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -166,6 +166,9 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
         role = "User";
     }
 
+    /**
+     * makes back button go to splash screeen
+     */
     public void onBackPressed() {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, SplashScreen.class);

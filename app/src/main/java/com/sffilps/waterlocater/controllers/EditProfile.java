@@ -70,6 +70,9 @@ public class EditProfile extends AppCompatActivity {
 
 
         final String uID = currentUser.getUid();
+        /**
+         * method querying database and choosing which role to select
+         */
         mDatabase.child(uID).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -98,6 +101,9 @@ public class EditProfile extends AppCompatActivity {
 
                     }
                 });
+        /**
+         * method submitting to database
+         */
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -40,6 +40,10 @@ public class SubmitQualityReportOptions extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * changes back button so it goes to quality report home
+     */
     public void onBackPressed() {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, QualityReportHome.class);

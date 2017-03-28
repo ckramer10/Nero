@@ -101,6 +101,7 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
+     * @param googleMap the google map object needed to manipulate it
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -124,6 +125,9 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
         mGoogleApiClient.connect();
     }
 
+    /**
+     * builds the google api client
+     */
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)

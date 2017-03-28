@@ -116,7 +116,9 @@ public class SubmitQualityReport extends AppCompatActivity {
                 Toast.makeText(SubmitQualityReport.this, "Quality Report Submitted",Toast.LENGTH_SHORT).show();
             }
         });
-
+        /**
+         * makes cancel button go back
+         */
         cancelQuality.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

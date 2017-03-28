@@ -184,6 +184,10 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    /**
+     * function to submit data to database
+     * @return true if successful false if not
+     */
     private boolean submitReport() {
 
         isNull = false;
@@ -225,10 +229,18 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         return true;
     }
 
+    /**
+     * sets the class variable from inside function
+     * @param s name string
+     */
     public void setUserName(String s) {
         userName = s;
     }
 
+    /**
+     * sets the count in database
+     * @param i old count
+     */
     public void setCount(String i) {
         stringCount = i;
         counter = Integer.parseInt(stringCount);

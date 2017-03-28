@@ -19,9 +19,24 @@ public class PurityReport {
     public String virusPPM;
     public String contaminantPPM;
 
+    /**
+     * default constructor
+     */
     public PurityReport() {
 
     }
+
+    /**
+     * constructor to initalize all the data
+     * @param purityReportNumber
+     * @param name
+     * @param address
+     * @param longitude
+     * @param latitude
+     * @param condition
+     * @param virusPPM
+     * @param contaminantPPM
+     */
     public PurityReport(int purityReportNumber, String name, String address, double longitude,
                             double latitude, String condition, String virusPPM, String contaminantPPM) {
         this.dateTime = DateFormat.getDateTimeInstance().format(new Date());
@@ -35,6 +50,10 @@ public class PurityReport {
         this.contaminantPPM = contaminantPPM;
     }
 
+    /**
+     * write the data to be put into the list
+     * @return the correct string for list
+     */
     public String toString() {
         return "\nReport Number: " + purityReportNumber + "    Condition: " + condition
                 + "\n\nVirus PPM: " + virusPPM +  "   Contaminant PPM: " + contaminantPPM

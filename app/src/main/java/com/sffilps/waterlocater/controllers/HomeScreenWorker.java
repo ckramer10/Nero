@@ -131,7 +131,9 @@ public class HomeScreenWorker extends AppCompatActivity {
     }
 
 
-
+    /**
+     * method to ask user if they really want to sign out
+     */
     public void onBackPressed(){
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override

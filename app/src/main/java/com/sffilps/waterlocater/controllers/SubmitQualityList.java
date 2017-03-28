@@ -88,7 +88,12 @@ public class SubmitQualityList extends AppCompatActivity {
         });
 
     }
-
+    /**
+     * method that uses google to pinpoint latlong position
+     * @param context the current frame the user is on
+     * @param strAddress the address used for the coordinates
+     * @return the latlong coordinates
+     */
     public LatLng getLocationFromAddress(Context context, String strAddress) {
 
         Geocoder coder = new Geocoder(context);
@@ -114,6 +119,10 @@ public class SubmitQualityList extends AppCompatActivity {
 
         return p1;
     }
+
+    /**
+     * makes back button always go to quality report options
+     */
     public void onBackPressed() {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, SubmitQualityReportOptions.class);

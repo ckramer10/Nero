@@ -36,7 +36,7 @@ public class PurityReportListView extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reports");
 
-        //gets snapshot of current reports in database
+        //gets snapshot of current purity reports in database
         mDatabase.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override

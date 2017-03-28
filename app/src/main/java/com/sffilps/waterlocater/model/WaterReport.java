@@ -70,39 +70,69 @@ public class WaterReport {
 
     }
 
+    /**
+     * adds report to list
+     * @param newReport new purity report
+     */
     public void addPurityReport(PurityReport newReport) {
         purityList.add(newReport);
     }
 
+    /**
+     * gets list
+     * @return purity list
+     */
     public ArrayList<PurityReport> getPurityList() {
         return purityList;
     }
 
+    /**
+     * sets key
+     * @param key string
+     */
     public void setKey (String key) {
         this.key = key;
     }
 
+    /**
+     * gets key
+     * @return current key
+     */
     public String getKey () {
         return key;
     }
 
-
+    /**
+     * @return address
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * @return longitude
+     */
     public double getLongitude(){
         return longitude;
     }
 
+    /**
+     * @return latitude
+     */
     public double getLatitude() {
         return latitude;
     }
 
+    /**
+     * @return address
+     */
     public String getTitle() {
         return address;
     }
 
+    /**
+     * @return returns type and condition in string
+     */
     public String getSnippet() {
         return "Type: " + type + "    " + "Condition: " + condition;
     }

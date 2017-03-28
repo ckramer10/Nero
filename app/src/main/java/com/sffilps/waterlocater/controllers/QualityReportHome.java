@@ -41,7 +41,7 @@ public class QualityReportHome extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-
+        //checks to make sure the user is a admin or manager
         viewQualityReports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +78,10 @@ public class QualityReportHome extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * makes back button direct to home screen worker
+     */
     public void onBackPressed() {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, HomeScreenWorker.class);
