@@ -45,28 +45,6 @@ public class SplashScreen extends AppCompatActivity {
                 context.startActivity(intent);
             }
         });
-
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, LoginScreen.class);
-                context.startActivity(intent);
-            }
-        });
-
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, RegisterScreen.class);
-                context.startActivity(intent);
-            }
-        });
-
-
-
     }
 
     /**

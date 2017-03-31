@@ -59,6 +59,9 @@ public class Settings extends AppCompatActivity {
 
     }
 
+    /**
+     * makes the back button go to correct role homepage
+     */
     public void onBackPressed(){
         final String uID = currentUser.getUid();
         mDatabase.child(uID).addListenerForSingleValueEvent(

@@ -44,8 +44,9 @@ import com.sffilps.waterlocater.R;
 import com.sffilps.waterlocater.model.WaterReport;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class ReportMapView extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class SubmitQualityMap extends FragmentActivity implements GoogleMap.OnMarkerClickListener,OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -56,12 +57,14 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
     private LatLng ll;
     private LocationRequest mLocationRequest;
     private final int TAG_CODE_PERMISSION_LOCATION = 1;
+    private Marker myMarker;
+    private HashMap<Marker, WaterReport> waterReportMap;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.report_map_view);
+        setContentView(R.layout.activity_submit_quality_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -72,6 +75,7 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reports");
+        waterReportMap = new HashMap<Marker, WaterReport>();
 
         //gets snapshot of current reports in database
         mDatabase.addListenerForSingleValueEvent(
@@ -81,6 +85,7 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
                         for(DataSnapshot eachReport : dataSnapshot.getChildren()) {
                             WaterReport w = eachReport.getValue(WaterReport.class);
                             array_of_reports.add(w);
+                            w.setKey(eachReport.getKey());
                         }
                     }
                     @Override
@@ -101,7 +106,7 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
-     * @param googleMap the google map object needed to manipulate it
+     * @param googleMap the google map used to manipulate it
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -126,7 +131,7 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
     }
 
     /**
-     * builds the google api client
+     * builds google api client
      */
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -138,6 +143,7 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+        mMap.setOnMarkerClickListener(this);
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
@@ -152,7 +158,8 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
             markerOptions.title(reportToAdd.getTitle());
             markerOptions.snippet(reportToAdd.getSnippet());
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-            mMap.addMarker(markerOptions);
+            myMarker = mMap.addMarker(markerOptions);
+            waterReportMap.put(myMarker,reportToAdd);
         }
 
         mLocationRequest = new LocationRequest();
@@ -179,5 +186,28 @@ public class ReportMapView extends FragmentActivity implements OnMapReadyCallbac
         ll = new LatLng(location.getLatitude(), location.getLongitude());
         //zoom to current position:
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ll,15));
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+            WaterReport clickedReport = waterReportMap.get(marker);
+            SubmitQualityReport.reportAddress = clickedReport.getAddress();
+            SubmitQualityReport.latitude = clickedReport.getLatitude();
+            SubmitQualityReport.longitude = clickedReport.getLongitude();
+            SubmitQualityReport.report = clickedReport;
+
+            Context context = getApplicationContext();
+            Intent intent = new Intent(context, SubmitQualityReport.class);
+            context.startActivity(intent);
+            return true;
+    }
+
+    /**
+     * makes back button go to options
+     */
+    public void onBackPressed() {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, SubmitQualityReportOptions.class);
+        context.startActivity(intent);
     }
 }

@@ -37,11 +37,54 @@ public class QualityReportHome extends AppCompatActivity {
 
         viewQualityReports = (Button) findViewById(R.id.viewQualityReports);
         submitQualityReport = (Button) findViewById(R.id.submitQualityReport);
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        //checks to make sure the user is a admin or manager
+        viewQualityReports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
+                final String uID = currentUser.getUid();
+                mDatabase.child(uID).addListenerForSingleValueEvent(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                // Get user value
+                                String role = ((String) dataSnapshot.child("role").getValue());
+                                if (role.equals("Administrator") || role.equals("Manager")) {
+                                    Intent intent = new Intent(QualityReportHome.this, PurityReportListView.class);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(QualityReportHome.this, "You must be a manager or admin for this function",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {}
+                        });
+            }
+        });
 
+        submitQualityReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, SubmitQualityReportOptions.class);
+                context.startActivity(intent);
+            }
+        });
+
+    }
+
+    /**
+     * makes back button direct to home screen worker
+     */
+    public void onBackPressed() {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, HomeScreenWorker.class);
+        context.startActivity(intent);
     }
 }

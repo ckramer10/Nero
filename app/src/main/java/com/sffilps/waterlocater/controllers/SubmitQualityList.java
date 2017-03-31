@@ -1,13 +1,16 @@
 package com.sffilps.waterlocater.controllers;
 
 import android.content.Context;
+import android.content.Intent;
+import android.location.Address;
 import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.android.gms.identity.intents.Address;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,10 +25,8 @@ import com.sffilps.waterlocater.model.WaterReport;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
-public class ReportListView extends AppCompatActivity {
+public class SubmitQualityList extends AppCompatActivity {
     //UI and firebase imports
     private ListView reportList;
     private FirebaseUser currentUser;
@@ -35,8 +36,8 @@ public class ReportListView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report_list_view);
-        reportList = (ListView) findViewById(R.id.report_list);
+        setContentView(R.layout.activity_submit_quality_list);
+        reportList = (ListView) findViewById(R.id.submit_quality_listview);
         array_of_reports = new ArrayList();
 
         mAuth = FirebaseAuth.getInstance();
@@ -48,21 +49,15 @@ public class ReportListView extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        /*
-                        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                        for( Map.Entry<String,Object> w : map.entrySet()) {
-
-                            array_of_reports.add(w.getValue());
-                        }
-                        */
 
                         for(DataSnapshot eachReport : dataSnapshot.getChildren()) {
                             WaterReport w = eachReport.getValue(WaterReport.class);
                             array_of_reports.add(w);
+                            w.setKey(eachReport.getKey());
                         }
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                                ReportListView.this,
+                                SubmitQualityList.this,
                                 android.R.layout.simple_list_item_1,
                                 array_of_reports );
 
@@ -76,10 +71,25 @@ public class ReportListView extends AppCompatActivity {
                 }
         );
 
-    }
+        reportList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                WaterReport clickedReport = (WaterReport) parent.getAdapter().getItem(position);
+                SubmitQualityReport.reportAddress = clickedReport.getAddress();
+                SubmitQualityReport.latitude = clickedReport.getLatitude();
+                SubmitQualityReport.longitude = clickedReport.getLongitude();
+                SubmitQualityReport.report = clickedReport;
 
+                Context context = getApplicationContext();
+                Intent intent = new Intent(context, SubmitQualityReport.class);
+                context.startActivity(intent);
+            }
+
+        });
+
+    }
     /**
-     * mehtod that uses google to pinpoint latlong position
+     * method that uses google to pinpoint latlong position
      * @param context the current frame the user is on
      * @param strAddress the address used for the coordinates
      * @return the latlong coordinates
@@ -87,7 +97,7 @@ public class ReportListView extends AppCompatActivity {
     public LatLng getLocationFromAddress(Context context, String strAddress) {
 
         Geocoder coder = new Geocoder(context);
-        List<android.location.Address> address;
+        List<Address> address;
         LatLng p1 = null;
 
         try {
@@ -108,5 +118,14 @@ public class ReportListView extends AppCompatActivity {
         }
 
         return p1;
+    }
+
+    /**
+     * makes back button always go to quality report options
+     */
+    public void onBackPressed() {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, SubmitQualityReportOptions.class);
+        context.startActivity(intent);
     }
 }

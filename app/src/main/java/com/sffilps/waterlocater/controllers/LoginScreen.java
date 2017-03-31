@@ -144,6 +144,10 @@ public class LoginScreen extends AppCompatActivity  {
         return signInBool;
 
     }
+
+    /**
+     * method making back button go to splash screen
+     */
     public void onBackPressed() {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, SplashScreen.class);

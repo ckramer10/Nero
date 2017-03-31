@@ -50,7 +50,6 @@ public class HomeScreen extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
-
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,9 +117,11 @@ public class HomeScreen extends AppCompatActivity {
     public void setUserName(String s) {
         userName = s;
     }
-    
 
 
+    /**
+     * method to make back button ask to sign out
+     */
     public void onBackPressed(){
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override

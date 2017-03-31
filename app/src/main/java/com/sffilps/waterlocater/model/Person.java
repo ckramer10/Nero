@@ -12,10 +12,21 @@ public class Person {
     public String role;
     public String uID;
 
+    /**
+     * default constructor
+     */
     public Person() {
 
     }
 
+    /**
+     * constructor that initializes everything
+     * @param name user name
+     * @param email user's
+     * @param role user's
+     * @param uID user's
+     * @param homeAddress user's
+     */
     public Person(String name, String email, String role, String uID, String homeAddress) {
         this.name = name;
         this.email = email;
