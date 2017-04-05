@@ -80,6 +80,7 @@
         <activity
             android:name=".controllers.ReportMapView"
             android:label="@string/title_activity_report_map_view" />
+<<<<<<< HEAD
         <activity android:name=".controllers.Settings" />
         <activity android:name=".controllers.EditProfile" />
         <activity android:name=".controllers.SubmitQualityReportOptions" />
@@ -87,6 +88,12 @@
         <activity android:name=".controllers.SubmitQualityReport" />
         <activity android:name=".controllers.SubmitQualityMap" />
         <activity android:name=".controllers.PurityReportListView"></activity>
+=======
+        <activity android:name=".controllers.Settings"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.EditProfile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+>>>>>>> case_branch
     </application>
 
 </manifest>

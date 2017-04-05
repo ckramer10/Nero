@@ -120,7 +120,11 @@ public class HomeScreen extends AppCompatActivity {
 
 
     /**
+<<<<<<< HEAD
      * method to make back button ask to sign out
+=======
+     * Method that prompts the user if they want to sign out,
+>>>>>>> case_branch
      */
     public void onBackPressed(){
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {

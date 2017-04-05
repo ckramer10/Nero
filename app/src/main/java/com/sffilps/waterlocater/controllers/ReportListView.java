@@ -38,7 +38,6 @@ public class ReportListView extends AppCompatActivity {
         setContentView(R.layout.activity_report_list_view);
         reportList = (ListView) findViewById(R.id.report_list);
         array_of_reports = new ArrayList();
-
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reports");
@@ -65,10 +64,8 @@ public class ReportListView extends AppCompatActivity {
                                 ReportListView.this,
                                 android.R.layout.simple_list_item_1,
                                 array_of_reports );
-
                         reportList.setAdapter(arrayAdapter);
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         //do nothing
@@ -79,10 +76,17 @@ public class ReportListView extends AppCompatActivity {
     }
 
     /**
+<<<<<<< HEAD
      * mehtod that uses google to pinpoint latlong position
      * @param context the current frame the user is on
      * @param strAddress the address used for the coordinates
      * @return the latlong coordinates
+=======
+     * Gets Location from string inputted by the user
+     * @param context
+     * @param strAddress string from user
+     * @return LatLng of input location or null if not found
+>>>>>>> case_branch
      */
     public LatLng getLocationFromAddress(Context context, String strAddress) {
 

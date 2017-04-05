@@ -41,6 +41,7 @@ public class QualityReportHome extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+<<<<<<< HEAD
         //checks to make sure the user is a admin or manager
         viewQualityReports.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,5 +87,7 @@ public class QualityReportHome extends AppCompatActivity {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, HomeScreenWorker.class);
         context.startActivity(intent);
+=======
+>>>>>>> case_branch
     }
 }

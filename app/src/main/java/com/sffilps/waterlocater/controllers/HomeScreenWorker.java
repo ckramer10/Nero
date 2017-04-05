@@ -132,7 +132,11 @@ public class HomeScreenWorker extends AppCompatActivity {
 
 
     /**
+<<<<<<< HEAD
      * method to ask user if they really want to sign out
+=======
+     * Method that prompts the user if they want to sign out,
+>>>>>>> case_branch
      */
     public void onBackPressed(){
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {

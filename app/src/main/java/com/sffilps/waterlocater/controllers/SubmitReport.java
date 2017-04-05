@@ -185,8 +185,13 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     }
 
     /**
+<<<<<<< HEAD
      * function to submit data to database
      * @return true if successful false if not
+=======
+     * Method to submit water report. Will not submit is location found is null
+     * @return boolean reportSubmitted
+>>>>>>> case_branch
      */
     private boolean submitReport() {
 
@@ -229,9 +234,16 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         return true;
     }
 
+<<<<<<< HEAD
     /**
      * sets the class variable from inside function
      * @param s name string
+=======
+
+    /**
+     * Set username for current Firebase user
+     * @param s stringName
+>>>>>>> case_branch
      */
     public void setUserName(String s) {
         userName = s;
@@ -259,7 +271,6 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     }
 
     /**
-     *
      * Gets Lat and Long from Address Entered
      * @param context Context of view
      * @param strAddress Address
