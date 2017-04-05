@@ -75,7 +75,11 @@ public class WaterReport {
      * @param newReport new purity report
      */
     public void addPurityReport(PurityReport newReport) {
-        purityList.add(newReport);
+        if(newReport == null) {
+            throw new IllegalArgumentException("Do not input a null purity report");
+        } else {
+            purityList.add(newReport);
+        }
     }
 
     /**
