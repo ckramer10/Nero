@@ -45,29 +45,11 @@ public class SplashScreen extends AppCompatActivity {
                 context.startActivity(intent);
             }
         });
-
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, LoginScreen.class);
-                context.startActivity(intent);
-            }
-        });
-
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, RegisterScreen.class);
-                context.startActivity(intent);
-            }
-        });
-
-
-
     }
+
+    /**
+     * Sets the back button to exit the app
+     */
     public void onBackPressed(){
         Intent a = new Intent(Intent.ACTION_MAIN);
         a.addCategory(Intent.CATEGORY_HOME);

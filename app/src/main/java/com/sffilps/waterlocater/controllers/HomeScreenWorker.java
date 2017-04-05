@@ -21,14 +21,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.sffilps.waterlocater.R;
 
 /**
- * Created by ckramer on 2/10/17.
+ * Created by ckramer on 3/12/17.
  */
 
-public class HomeScreen extends AppCompatActivity {
-
+public class HomeScreenWorker extends AppCompatActivity {
+    private Button signoutButton;
     private Button submitReport;
     private Button viewReportsList;
     private Button viewReportsMap;
+    private Button viewQualityReports;
     private Button settings;
     private FirebaseAuth mAuth;
     private TextView name;
@@ -39,16 +40,18 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_home);
+        setContentView(R.layout.activity_login_home_worker);
 
         settings = (Button) findViewById(R.id.settings);
         submitReport = (Button) findViewById(R.id.submitreport);
         viewReportsList = (Button) findViewById(R.id.viewwsourceslist);
         viewReportsMap = (Button) findViewById(R.id.viewwsourcesmap);
+        viewQualityReports = (Button) findViewById(R.id.viewQualityReports);
         name = (TextView) findViewById(R.id.email_text);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +85,15 @@ public class HomeScreen extends AppCompatActivity {
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, ReportMapView.class);
+                context.startActivity(intent);
+            }
+        });
+
+        viewQualityReports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, QualityReportHome.class);
                 context.startActivity(intent);
             }
         });
@@ -120,7 +132,7 @@ public class HomeScreen extends AppCompatActivity {
 
 
     /**
-     * method to make back button ask to sign out
+     * method to ask user if they really want to sign out
      */
     public void onBackPressed(){
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
