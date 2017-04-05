@@ -73,7 +73,8 @@ public class HistoricalReportGraph extends AppCompatActivity {
         entries.add(new Entry(11,(float) novAVG));
         entries.add(new Entry(12,(float) decAVG));
 
-        LineDataSet dataSet = new LineDataSet(entries,"Report Type: " + yAxis);
+        LineDataSet dataSet = new LineDataSet(entries,"Report Type: " + yAxis + " PPM");
+
 
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
