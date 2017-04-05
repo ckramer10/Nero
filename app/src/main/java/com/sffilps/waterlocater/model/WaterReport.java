@@ -77,10 +77,13 @@ public class WaterReport {
     public void addPurityReport(PurityReport newReport) {
         if(newReport == null) {
             throw new IllegalArgumentException("Do not input a null purity report");
+        } else if(purityList.contains(newReport)) {
+            throw new IllegalArgumentException("That purity report already exists");
         } else {
             purityList.add(newReport);
         }
     }
+
 
     /**
      * gets list

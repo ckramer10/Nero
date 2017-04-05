@@ -66,9 +66,20 @@ public class AddPurityReportTest {
      * tests to make sure the purity report is not null
      */
     @Test(expected=IllegalArgumentException.class)
-    public void testIllegalArguementException() {
+    public void testNullArguement() {
         PurityReport p = null;
         WaterReport w = new WaterReport();
+        w.addPurityReport(p);
+    }
+
+    /**
+     * tests to make sure the purity report is not already in the water report list
+     */
+    @Test(expected=IllegalArgumentException.class)
+    public void testDuplicateArguement() {
+        PurityReport p = new PurityReport();
+        WaterReport w = new WaterReport();
+        w.addPurityReport(p);
         w.addPurityReport(p);
     }
 }
