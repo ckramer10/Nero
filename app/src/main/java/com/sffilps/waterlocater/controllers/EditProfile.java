@@ -37,6 +37,7 @@ public class EditProfile extends AppCompatActivity {
     private TextView emailView;
     private TextView addressView;
     private Button submit;
+    private Button cancelButton;
 
     private FirebaseAuth mAuth;
     private TextView name;
@@ -53,6 +54,7 @@ public class EditProfile extends AppCompatActivity {
         addressView = (TextView) findViewById(R.id.editAddress);
 
         submit = (Button) findViewById(R.id.submit_changes);
+        cancelButton = (Button) findViewById(R.id.cancel_changes);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -134,5 +136,21 @@ public class EditProfile extends AppCompatActivity {
 
             }
         });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              onBackPressed();
+            }
+        });
+    }
+
+    /**
+     * makes back button direct to home screen worker
+     */
+    public void onBackPressed() {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, Settings.class);
+        context.startActivity(intent);
     }
 }

@@ -79,14 +79,32 @@
 
         <activity
             android:name=".controllers.ReportMapView"
-            android:label="@string/title_activity_report_map_view" />
-        <activity android:name=".controllers.Settings" />
-        <activity android:name=".controllers.EditProfile" />
-        <activity android:name=".controllers.SubmitQualityReportOptions" />
-        <activity android:name=".controllers.SubmitQualityList" />
-        <activity android:name=".controllers.SubmitQualityReport" />
-        <activity android:name=".controllers.SubmitQualityMap" />
-        <activity android:name=".controllers.PurityReportListView"></activity>
+            android:label="@string/title_activity_report_map_view"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.Settings"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.EditProfile"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.SubmitQualityReportOptions"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.SubmitQualityList"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.SubmitQualityReport"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.SubmitQualityMap"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.PurityReportListView"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.HistoricalReportSplashScreen"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.HistoricalReportList"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.HistoricalReportMap"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.HistoricalReportGraph"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controllers.HistoricalReportSettings"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

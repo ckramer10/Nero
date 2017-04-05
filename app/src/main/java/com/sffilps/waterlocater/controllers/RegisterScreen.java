@@ -167,7 +167,7 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
     }
 
     /**
-     * makes back button go to splash screeen
+     * makes back button go to splash screen
      */
     public void onBackPressed() {
         Context context = getApplicationContext();

@@ -27,7 +27,7 @@ public class PurityReport {
     }
 
     /**
-     * constructor to initalize all the data
+     * constructor to initialize all the data
      * @param purityReportNumber
      * @param name
      * @param address
@@ -60,4 +60,9 @@ public class PurityReport {
                 + "\n\nLocation: " + address
                 + "\n\nSubmitted by: " + name + "\n\nTime: " + dateTime + "\n";
     }
+
+    public String getSubmitDate() {
+        return dateTime;
+    }
+
 }

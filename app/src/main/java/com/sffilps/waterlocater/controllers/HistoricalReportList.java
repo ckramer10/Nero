@@ -1,14 +1,14 @@
 package com.sffilps.waterlocater.controllers;
 
 import android.content.Context;
-import android.location.Geocoder;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.android.gms.identity.intents.Address;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,25 +18,31 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sffilps.waterlocater.R;
 import com.sffilps.waterlocater.model.WaterReport;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import com.sffilps.waterlocater.model.WaterReport;
 
-public class ReportListView extends AppCompatActivity {
-    //UI and firebase imports
+
+/**
+ * Created by ckramer on 4/2/17.
+ */
+
+public class HistoricalReportList extends AppCompatActivity {
+
+    public static String reportAddress;
+    public static double latitude;
+    public static double longitude;
+    public static WaterReport report;
     private ListView reportList;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private ArrayList array_of_reports;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report_list_view);
-        reportList = (ListView) findViewById(R.id.report_list);
+        setContentView(R.layout.activity_historical_report_list);
+        reportList = (ListView) findViewById(R.id.historical_listview);
         array_of_reports = new ArrayList();
 
         mAuth = FirebaseAuth.getInstance();
@@ -48,23 +54,17 @@ public class ReportListView extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        /*
-                        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                        for( Map.Entry<String,Object> w : map.entrySet()) {
 
-                            array_of_reports.add(w.getValue());
-                        }
-                        */
-
-                        for(DataSnapshot eachReport : dataSnapshot.getChildren()) {
+                        for (DataSnapshot eachReport : dataSnapshot.getChildren()) {
                             WaterReport w = eachReport.getValue(WaterReport.class);
                             array_of_reports.add(w);
+                            w.setKey(eachReport.getKey());
                         }
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                                ReportListView.this,
+                                HistoricalReportList.this,
                                 android.R.layout.simple_list_item_1,
-                                array_of_reports );
+                                array_of_reports);
 
                         reportList.setAdapter(arrayAdapter);
                     }
@@ -74,39 +74,27 @@ public class ReportListView extends AppCompatActivity {
                         //do nothing
                     }
                 }
+
         );
 
-    }
+        reportList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                WaterReport clickedReport = (WaterReport) parent.getAdapter().getItem(position);
+                HistoricalReportSettings.reportAddress = clickedReport.getAddress();
+                HistoricalReportSettings.latitude = clickedReport.getLatitude();
+                HistoricalReportSettings.longitude = clickedReport.getLongitude();
+                HistoricalReportSettings.report = clickedReport;
 
-    /**
-     * method that uses google to pinpoint latlong position
-     * @param context the current frame the user is on
-     * @param strAddress the address used for the coordinates
-     * @return the latlong coordinates
-     */
-    public LatLng getLocationFromAddress(Context context, String strAddress) {
-
-        Geocoder coder = new Geocoder(context);
-        List<android.location.Address> address;
-        LatLng p1 = null;
-
-        try {
-            // May throw an IOException
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                return null;
+                Context context = getApplicationContext();
+                Intent intent = new Intent(context, HistoricalReportSettings.class);
+                context.startActivity(intent);
             }
-            android.location.Address location = address.get(0);
-            location.getLatitude();
-            location.getLongitude();
+        });
 
-            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
 
-        } catch (IOException ex) {
 
-            ex.printStackTrace();
-        }
 
-        return p1;
     }
+
 }

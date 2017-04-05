@@ -8,11 +8,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@android:color/holo_blue_dark"
     tools:context="com.sffilps.waterlocater.controllers.EditProfile">
 
     <TextView
         android:text="Profile"
         android:layout_width="wrap_content"
+        android:textColor="@android:color/white"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -36,6 +38,7 @@
                 android:text="Name: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
                 android:textSize="20dp"
                 android:id="@+id/nameLabel"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
@@ -43,6 +46,8 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:textColor="@android:color/white"
                 android:inputType="textPersonName"
                 android:text="Name"
                 android:ems="10"
@@ -60,6 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:textColor="@android:color/white"
                 android:id="@+id/emailLabel"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
@@ -67,6 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
+                android:backgroundTint="@android:color/white"
+                android:textColor="@android:color/white"
                 android:ems="10"
                 android:id="@+id/editEmail" />
 
@@ -82,6 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:textColor="@android:color/white"
                 android:id="@+id/addressLabel"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
@@ -89,6 +98,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPostalAddress"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@android:color/white"
                 android:ems="10"
                 android:id="@+id/editAddress" />
 
@@ -104,6 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:textColor="@android:color/white"
                 android:id="@+id/roleLabel"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
@@ -116,11 +128,20 @@
     </TableLayout>
 
     <Button
-        android:text="Submit Changes"
-        android:layout_width="wrap_content"
+    android:text="Submit Changes"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/submit_changes"
+    android:background="@android:color/white"
+    android:layout_marginTop="410dp"
+    />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/submit_changes"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
+        android:id="@+id/cancel_changes"
+        android:background="@android:color/white"
+        android:layout_marginTop="480dp"
+        />
 </RelativeLayout>

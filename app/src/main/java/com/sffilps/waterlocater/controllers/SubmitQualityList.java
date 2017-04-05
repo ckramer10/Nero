@@ -88,37 +88,6 @@ public class SubmitQualityList extends AppCompatActivity {
         });
 
     }
-    /**
-     * method that uses google to pinpoint latlong position
-     * @param context the current frame the user is on
-     * @param strAddress the address used for the coordinates
-     * @return the latlong coordinates
-     */
-    public LatLng getLocationFromAddress(Context context, String strAddress) {
-
-        Geocoder coder = new Geocoder(context);
-        List<Address> address;
-        LatLng p1 = null;
-
-        try {
-            // May throw an IOException
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                return null;
-            }
-            android.location.Address location = address.get(0);
-            location.getLatitude();
-            location.getLongitude();
-
-            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
-
-        } catch (IOException ex) {
-
-            ex.printStackTrace();
-        }
-
-        return p1;
-    }
 
     /**
      * makes back button always go to quality report options

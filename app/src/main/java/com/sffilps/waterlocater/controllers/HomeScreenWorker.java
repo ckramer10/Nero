@@ -30,9 +30,11 @@ public class HomeScreenWorker extends AppCompatActivity {
     private Button viewReportsList;
     private Button viewReportsMap;
     private Button viewQualityReports;
+    private Button viewHistoricalReports;
     private Button settings;
     private FirebaseAuth mAuth;
     private TextView name;
+    private String role;
     FirebaseUser currentUser;
     DatabaseReference mDatabase;
     private String userName;
@@ -47,6 +49,7 @@ public class HomeScreenWorker extends AppCompatActivity {
         viewReportsList = (Button) findViewById(R.id.viewwsourceslist);
         viewReportsMap = (Button) findViewById(R.id.viewwsourcesmap);
         viewQualityReports = (Button) findViewById(R.id.viewQualityReports);
+        viewHistoricalReports = (Button) findViewById(R.id.viewHistoricalReports);
         name = (TextView) findViewById(R.id.email_text);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -98,6 +101,19 @@ public class HomeScreenWorker extends AppCompatActivity {
             }
         });
 
+        viewHistoricalReports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (role.equals("Manager")) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, HistoricalReportSplashScreen.class);
+                    context.startActivity(intent);
+                } else {
+                    Toast.makeText(HomeScreenWorker.this, "Only Managers can view Historical Reports.",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         if (currentUser != null) {
             String email = currentUser.getEmail();
             final String uID = currentUser.getUid();
@@ -107,6 +123,7 @@ public class HomeScreenWorker extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // Get user value
                             setUserName((String) dataSnapshot.child("name").getValue());
+                            role = (String) dataSnapshot.child("role").getValue();
                             name.setText("Welcome, " + userName);
                         }
 
