@@ -79,7 +79,7 @@ public class ReportListView extends AppCompatActivity {
     }
 
     /**
-     * mehtod that uses google to pinpoint latlong position
+     * method that uses google to pinpoint latlong position
      * @param context the current frame the user is on
      * @param strAddress the address used for the coordinates
      * @return the latlong coordinates

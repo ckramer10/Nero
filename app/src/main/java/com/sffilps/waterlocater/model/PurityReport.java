@@ -27,7 +27,7 @@ public class PurityReport {
     }
 
     /**
-     * constructor to initalize all the data
+     * constructor to initialize all the data
      * @param purityReportNumber
      * @param name
      * @param address
