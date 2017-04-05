@@ -2,16 +2,13 @@ package com.sffilps.waterlocater.controllers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,23 +18,31 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sffilps.waterlocater.R;
 import com.sffilps.waterlocater.model.WaterReport;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import com.sffilps.waterlocater.model.WaterReport;
 
-public class SubmitQualityList extends AppCompatActivity {
-    //UI and firebase imports
+
+/**
+ * Created by ckramer on 4/2/17.
+ */
+
+public class HistoricalReportList extends AppCompatActivity {
+
+    public static String reportAddress;
+    public static double latitude;
+    public static double longitude;
+    public static WaterReport report;
     private ListView reportList;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private ArrayList array_of_reports;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_submit_quality_list);
-        reportList = (ListView) findViewById(R.id.submit_quality_listview);
+        setContentView(R.layout.activity_historical_report_list);
+        reportList = (ListView) findViewById(R.id.historical_listview);
         array_of_reports = new ArrayList();
 
         mAuth = FirebaseAuth.getInstance();
@@ -50,16 +55,16 @@ public class SubmitQualityList extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        for(DataSnapshot eachReport : dataSnapshot.getChildren()) {
+                        for (DataSnapshot eachReport : dataSnapshot.getChildren()) {
                             WaterReport w = eachReport.getValue(WaterReport.class);
                             array_of_reports.add(w);
                             w.setKey(eachReport.getKey());
                         }
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                                SubmitQualityList.this,
+                                HistoricalReportList.this,
                                 android.R.layout.simple_list_item_1,
-                                array_of_reports );
+                                array_of_reports);
 
                         reportList.setAdapter(arrayAdapter);
                     }
@@ -69,32 +74,27 @@ public class SubmitQualityList extends AppCompatActivity {
                         //do nothing
                     }
                 }
+
         );
 
         reportList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 WaterReport clickedReport = (WaterReport) parent.getAdapter().getItem(position);
-                SubmitQualityReport.reportAddress = clickedReport.getAddress();
-                SubmitQualityReport.latitude = clickedReport.getLatitude();
-                SubmitQualityReport.longitude = clickedReport.getLongitude();
-                SubmitQualityReport.report = clickedReport;
+                HistoricalReportSettings.reportAddress = clickedReport.getAddress();
+                HistoricalReportSettings.latitude = clickedReport.getLatitude();
+                HistoricalReportSettings.longitude = clickedReport.getLongitude();
+                HistoricalReportSettings.report = clickedReport;
 
                 Context context = getApplicationContext();
-                Intent intent = new Intent(context, SubmitQualityReport.class);
+                Intent intent = new Intent(context, HistoricalReportSettings.class);
                 context.startActivity(intent);
             }
-
         });
 
+
+
+
     }
 
-    /**
-     * makes back button always go to quality report options
-     */
-    public void onBackPressed() {
-        Context context = getApplicationContext();
-        Intent intent = new Intent(context, SubmitQualityReportOptions.class);
-        context.startActivity(intent);
-    }
 }

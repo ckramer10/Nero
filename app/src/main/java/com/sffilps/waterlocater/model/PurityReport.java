@@ -60,4 +60,9 @@ public class PurityReport {
                 + "\n\nLocation: " + address
                 + "\n\nSubmitted by: " + name + "\n\nTime: " + dateTime + "\n";
     }
+
+    public String getSubmitDate() {
+        return dateTime;
+    }
+
 }

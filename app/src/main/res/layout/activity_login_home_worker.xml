@@ -72,6 +72,16 @@
         android:id="@+id/viewQualityReports"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@android:color/white"
+        android:text="View Historical Reports"
+        android:id="@+id/viewHistoricalReports"
+        android:layout_height="wrap_content" />
+
 
 
 
