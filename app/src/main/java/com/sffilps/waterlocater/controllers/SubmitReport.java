@@ -45,8 +45,8 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     private Spinner typeSpinner;
     private EditText inputAddress;
     private Spinner conditionSpinner;
-    private int counter;
-    private String stringCount;
+    private static int counter;
+    private static String stringCount;
     private String userName;
     private FirebaseUser currentUser;
     private DatabaseReference mDatabase;
@@ -56,11 +56,13 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     private String condition;
     private boolean isNull;
     private View submit;
+    private String count;
     private double currentLong;
     private double currentLat;
     private LatLng ll;
     private String role;
     private GoogleApiClient mGoogleApiClient;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -241,11 +243,21 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
      * sets the count in database
      * @param i old count
      */
-    public void setCount(String i) {
-        stringCount = i;
-        counter = Integer.parseInt(stringCount);
+    public static String setCount(String i) {
+        if (i.equals(null)) {
+            throw(new NullPointerException("String is empty. Expected a number."));
+        }
+
+        try {
+            stringCount = i;
+            counter = Integer.parseInt(stringCount);
+        } catch (IllegalArgumentException err) {
+            throw(err);
+        }
+
         counter++;
         stringCount = Integer.toString(counter);
+        return stringCount;
     }
 
     @Override
