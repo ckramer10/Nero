@@ -45,8 +45,8 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
     private Spinner typeSpinner;
     private EditText inputAddress;
     private Spinner conditionSpinner;
-    private int counter;
-    private String stringCount;
+    private static int counter;
+    private static String stringCount;
     private String userName;
     private FirebaseUser currentUser;
     private DatabaseReference mDatabase;
@@ -241,7 +241,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
      * sets the count in database
      * @param i old count
      */
-    public void setCount(String i) {
+    public static void setCount(String i) {
         stringCount = i;
         counter = Integer.parseInt(stringCount);
         counter++;
