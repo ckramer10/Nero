@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.sffilps.waterlocater.controllers.SubmitReport;
 import com.sffilps.waterlocater.model.PurityReport;
 import com.sffilps.waterlocater.model.WaterReport;
 import static org.hamcrest.CoreMatchers.is;
@@ -81,5 +82,8 @@ public class AddPurityReportTest {
         WaterReport w = new WaterReport();
         w.addPurityReport(p);
         w.addPurityReport(p);
+        String s = "1";
+        SubmitReport.setCount(s);
+        System.out.print(s);
     }
 }
