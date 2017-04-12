@@ -36,7 +36,7 @@
                 android:text="Name: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/nameLabel"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
@@ -59,7 +59,7 @@
                 android:text="Email: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/emailLabel"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
@@ -81,7 +81,7 @@
                 android:text="Address: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/addressLabel"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
@@ -103,7 +103,7 @@
                 android:text="Role: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:id="@+id/roleLabel"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 

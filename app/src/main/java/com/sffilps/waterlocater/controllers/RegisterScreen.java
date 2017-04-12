@@ -46,7 +46,7 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
     private Spinner spinner;
     private String username;
     private String role;
-    boolean registerBool = false;
+    private boolean registerBool = false;
     private FirebaseUser user;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -69,13 +69,13 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-        List<String> roles = new ArrayList<String>();
+        List<String> roles = new ArrayList<>();
         roles.add("Administrator");
         roles.add("Manager");
         roles.add("User (Default)");
         roles.add("Worker");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roles);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(dataAdapter);

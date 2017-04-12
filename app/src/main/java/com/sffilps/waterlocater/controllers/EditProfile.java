@@ -15,10 +15,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.vision.text.Text;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,8 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sffilps.waterlocater.R;
 import com.sffilps.waterlocater.model.Person;
-import com.sffilps.waterlocater.model.WaterReport;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,9 +35,8 @@ public class EditProfile extends AppCompatActivity {
     private Button submit;
 
     private FirebaseAuth mAuth;
-    private TextView name;
-    FirebaseUser currentUser;
-    DatabaseReference mDatabase;
+    private FirebaseUser currentUser;
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +54,12 @@ public class EditProfile extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        List<String> roles = new ArrayList<String>();
+        List<String> roles = new ArrayList<>();
         roles.add("User (Default)");
         roles.add("Worker");
         roles.add("Manager");
         roles.add("Administrator");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roles);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
 
@@ -122,9 +117,6 @@ public class EditProfile extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-
-                                }
                             }
                         });
                 Context context = v.getContext();

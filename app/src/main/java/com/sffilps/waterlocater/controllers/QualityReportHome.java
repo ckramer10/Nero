@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,8 +26,8 @@ public class QualityReportHome extends AppCompatActivity {
     private Button viewQualityReports;
     private Button submitQualityReport;
     private FirebaseAuth mAuth;
-    FirebaseUser currentUser;
-    DatabaseReference mDatabase;
+    private FirebaseUser currentUser;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

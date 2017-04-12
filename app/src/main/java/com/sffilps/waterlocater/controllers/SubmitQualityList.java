@@ -56,7 +56,7 @@ public class SubmitQualityList extends AppCompatActivity {
                             w.setKey(eachReport.getKey());
                         }
 
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                                 SubmitQualityList.this,
                                 android.R.layout.simple_list_item_1,
                                 array_of_reports );

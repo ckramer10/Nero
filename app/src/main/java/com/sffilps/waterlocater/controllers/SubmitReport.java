@@ -12,11 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.identity.intents.Address;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,9 +28,7 @@ import com.sffilps.waterlocater.model.WaterReport;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by ckramer on 2/23/17.
@@ -77,7 +73,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         mDatabase = FirebaseDatabase.getInstance().getReference();
         isNull = false;
 
-        List<String> types = new ArrayList<String>();
+        List<String> types = new ArrayList<>();
         types.add("Bottled");
         types.add("Well");
         types.add("Stream");
@@ -85,16 +81,16 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         types.add("Spring");
         types.add("Other");
 
-        List<String> conditions = new ArrayList<String>();
+        List<String> conditions = new ArrayList<>();
         conditions.add("Waste");
         conditions.add("Treatable-Clear");
         conditions.add("Treatable-Muddy");
         conditions.add("Potable");
 
-        ArrayAdapter<String> typesDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, types);
+        ArrayAdapter<String> typesDataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, types);
         typesDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        ArrayAdapter<String> conditionsDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, conditions);
+        ArrayAdapter<String> conditionsDataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, conditions);
         conditionsDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         typeSpinner.setAdapter(typesDataAdapter);
@@ -199,7 +195,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
 
         ll = getLocationFromAddress(submit.getContext(),inputAddress.getText().toString().trim());
 
-        if (isNull == true) {
+        if (isNull) {
             Toast.makeText(this, "Couldn't find address. Please try again.",Toast.LENGTH_LONG).show();
             return false;
         }
@@ -218,7 +214,6 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
                         usersRef.child(stringCount).setValue(report);
                         System.out.println(report);
                         mDatabase.child("Count").setValue(stringCount);
-                        return;
                     }
 
                     @Override
@@ -265,11 +260,11 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
      * @param strAddress Address
      * @return Lat and Long of Address
      */
-    public LatLng getLocationFromAddress(Context context,String strAddress) {
+    private LatLng getLocationFromAddress(Context context,String strAddress) {
 
         Geocoder coder = new Geocoder(context);
         List<android.location.Address> address;
-        LatLng p1 = null;
+        LatLng p1;
 
         try {
             // May throw an IOException

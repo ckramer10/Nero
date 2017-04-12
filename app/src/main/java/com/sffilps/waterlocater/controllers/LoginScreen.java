@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,11 +34,10 @@ public class LoginScreen extends AppCompatActivity  {
     private Button signInButton;
     private Button backButton;
     private ProgressDialog progressDialog;
-    boolean signInBool = false;
-    boolean registerBool = false;
+    private boolean signInBool = false;
     private FirebaseAuth mAuth;
-    FirebaseUser currentUser;
-    DatabaseReference mDatabase;
+    private FirebaseUser currentUser;
+    private DatabaseReference mDatabase;
     private String role;
 
 

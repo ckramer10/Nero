@@ -2,21 +2,15 @@ package com.sffilps.waterlocater.controllers;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -24,7 +18,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -71,11 +64,11 @@ public class SubmitQualityMap extends FragmentActivity implements GoogleMap.OnMa
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        array_of_reports = new ArrayList<WaterReport>();
+        array_of_reports = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reports");
-        waterReportMap = new HashMap<Marker, WaterReport>();
+        waterReportMap = new HashMap<>();
 
         //gets snapshot of current reports in database
         mDatabase.addListenerForSingleValueEvent(
@@ -144,11 +137,6 @@ public class SubmitQualityMap extends FragmentActivity implements GoogleMap.OnMa
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         mMap.setOnMarkerClickListener(this);
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
-                        PackageManager.PERMISSION_GRANTED) {
-        }
 
         for (int i = 0; i < array_of_reports.size(); i++) {
             WaterReport reportToAdd = array_of_reports.get(i);

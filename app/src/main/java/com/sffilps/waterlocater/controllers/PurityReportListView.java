@@ -48,7 +48,7 @@ public class PurityReportListView extends AppCompatActivity {
                             array_of_reports.add(pr);
                         }
 
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                                 PurityReportListView.this,
                                 android.R.layout.simple_list_item_1,
                                 array_of_reports );

@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,8 +31,8 @@ public class HomeScreen extends AppCompatActivity {
     private Button settings;
     private FirebaseAuth mAuth;
     private TextView name;
-    FirebaseUser currentUser;
-    DatabaseReference mDatabase;
+    private FirebaseUser currentUser;
+    private DatabaseReference mDatabase;
     private String userName;
 
     @Override
@@ -87,7 +86,6 @@ public class HomeScreen extends AppCompatActivity {
         });
 
         if (currentUser != null) {
-            String email = currentUser.getEmail();
             final String uID = currentUser.getUid();
             mDatabase.child(uID).addListenerForSingleValueEvent(
                     new ValueEventListener() {
@@ -95,7 +93,8 @@ public class HomeScreen extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // Get user value
                             setUserName((String) dataSnapshot.child("name").getValue());
-                            name.setText("Welcome, " + userName);
+                            String s = "Welcome, " + userName;
+                            name.setText(s);
                         }
 
                         @Override
@@ -105,7 +104,8 @@ public class HomeScreen extends AppCompatActivity {
                     });
 
         } else {
-            name.setText("Didn't work");
+            String st = "Didn't work";
+            name.setText(st);
         }
 
     }

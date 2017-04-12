@@ -11,8 +11,8 @@ import com.sffilps.waterlocater.R;
 
 public class SubmitQualityReportOptions extends AppCompatActivity {
 
-    public Button viewList;
-    public Button viewMap;
+    private Button viewList;
+    private Button viewMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

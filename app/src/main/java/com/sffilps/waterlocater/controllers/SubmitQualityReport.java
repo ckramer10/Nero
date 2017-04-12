@@ -29,17 +29,17 @@ import java.util.List;
 public class SubmitQualityReport extends AppCompatActivity {
 
     public static WaterReport report;
-    public static Integer purityKey;
+    private static Integer purityKey;
     private TextView address;
     public static String reportAddress;
     public static double longitude;
     public static double latitude;
-    public Button submitQuality;
-    public Button cancelQuality;
-    public EditText virusPPM;
-    public EditText contaminantPPM;
-    public Spinner conditionSpinner;
-    public String name;
+    private Button submitQuality;
+    private Button cancelQuality;
+    private EditText virusPPM;
+    private EditText contaminantPPM;
+    private Spinner conditionSpinner;
+    private String name;
     private FirebaseUser currentUser;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -64,12 +64,12 @@ public class SubmitQualityReport extends AppCompatActivity {
         virusPPM = (EditText) findViewById(R.id.virus_text_field);
         contaminantPPM = (EditText) findViewById(R.id.contaminant_text_field);
 
-        List<String> conditions = new ArrayList<String>();
+        List<String> conditions = new ArrayList<>();
         conditions.add("Safe");
         conditions.add("Treatable");
         conditions.add("Untreatable");
 
-        ArrayAdapter<String> conditionsDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, conditions);
+        ArrayAdapter<String> conditionsDataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, conditions);
         conditionsDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         conditionSpinner.setAdapter(conditionsDataAdapter);
         conditionSpinner.setSelection(0);
