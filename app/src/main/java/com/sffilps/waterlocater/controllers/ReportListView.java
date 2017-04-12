@@ -61,7 +61,7 @@ public class ReportListView extends AppCompatActivity {
                             array_of_reports.add(w);
                         }
 
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                                 ReportListView.this,
                                 android.R.layout.simple_list_item_1,
                                 array_of_reports );

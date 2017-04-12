@@ -28,14 +28,14 @@ public class PurityReport {
 
     /**
      * constructor to initalize all the data
-     * @param purityReportNumber
-     * @param name
-     * @param address
-     * @param longitude
-     * @param latitude
-     * @param condition
-     * @param virusPPM
-     * @param contaminantPPM
+     * @param purityReportNumber purity report numbers
+     * @param name name
+     * @param address address
+     * @param longitude longitude
+     * @param latitude latitude
+     * @param condition condition
+     * @param virusPPM virus ppm
+     * @param contaminantPPM contaminant ppm
      */
     public PurityReport(int purityReportNumber, String name, String address, double longitude,
                             double latitude, String condition, String virusPPM, String contaminantPPM) {

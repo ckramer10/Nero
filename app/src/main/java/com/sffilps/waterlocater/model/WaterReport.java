@@ -34,11 +34,11 @@ public class WaterReport {
 
     /**
      * Full Constructor
-     * @param date
-     * @param loc
-     * @param cond
-     * @param typ
-     * @param subBy
+     * @param date date
+     * @param loc loc
+     * @param cond cond
+     * @param typ typ
+     * @param subBy subby
      */
     public WaterReport(String date, String loc, String cond, String typ, String subBy, double lat, double lng) {
         this.purityList = new ArrayList<>();
@@ -53,10 +53,10 @@ public class WaterReport {
 
     /**
      *  Auto Generate Date Constructor
-     * @param cond
-     * @param typ
-     * @param subBy
-     * @param loc
+     * @param cond condition
+     * @param typ type
+     * @param subBy submit date
+     * @param loc location
      */
     public WaterReport(String cond, String typ, String subBy, String loc, double lat, double lng) {
         this.dateTime = DateFormat.getDateTimeInstance().format(new Date());
