@@ -259,7 +259,7 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         } catch (IllegalArgumentException err) {
             throw(err);
         }
-
+      
         counter++;
         stringCount = Integer.toString(counter);
         return stringCount;
