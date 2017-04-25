@@ -80,6 +80,7 @@ public class EditProfile extends AppCompatActivity {
 
                     }
                 });
+
         /**
          * method submitting to database
          */
