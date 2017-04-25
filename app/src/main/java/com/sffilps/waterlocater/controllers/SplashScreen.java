@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.google.android.gms.vision.text.Text;
 import com.sffilps.waterlocater.R;
 import com.sffilps.waterlocater.controllers.LoginScreen;
 import com.sffilps.waterlocater.controllers.RegisterScreen;
@@ -19,12 +23,15 @@ public class SplashScreen extends AppCompatActivity {
 
     private Button signInButton;
     private Button registerButton;
+    private TextView title;
+    private Animation animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-
+        animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+        title = (TextView) findViewById(R.id.title);
         registerButton = (Button) findViewById(R.id.register_button);
         signInButton = (Button) findViewById(R.id.login_button);
 
@@ -45,6 +52,9 @@ public class SplashScreen extends AppCompatActivity {
                 context.startActivity(intent);
             }
         });
+
+        title.startAnimation(animation);
+
     }
 
     /**

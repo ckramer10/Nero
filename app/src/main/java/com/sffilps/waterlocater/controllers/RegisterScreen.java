@@ -7,6 +7,8 @@ package com.sffilps.waterlocater.controllers;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
@@ -66,6 +68,7 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
         spinner = (Spinner) findViewById(R.id.role_spinner);
 
         spinner.setOnItemSelectedListener(this);
+        spinner.getBackground().setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -75,7 +78,7 @@ public class RegisterScreen extends AppCompatActivity implements AdapterView.OnI
         roles.add("User (Default)");
         roles.add("Worker");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roles);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, roles);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(dataAdapter);

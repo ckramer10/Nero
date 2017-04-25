@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ public class HomeScreen extends AppCompatActivity {
     private Button submitReport;
     private Button viewReportsList;
     private Button viewReportsMap;
-    private Button settings;
+    private ImageButton settings;
     private FirebaseAuth mAuth;
     private TextView name;
     FirebaseUser currentUser;
@@ -41,7 +42,7 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_home);
 
-        settings = (Button) findViewById(R.id.settings);
+        settings = (ImageButton) findViewById(R.id.settings);
         submitReport = (Button) findViewById(R.id.submitreport);
         viewReportsList = (Button) findViewById(R.id.viewwsourceslist);
         viewReportsMap = (Button) findViewById(R.id.viewwsourcesmap);

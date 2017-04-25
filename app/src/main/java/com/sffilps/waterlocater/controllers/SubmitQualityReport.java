@@ -2,6 +2,8 @@ package com.sffilps.waterlocater.controllers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -69,7 +71,9 @@ public class SubmitQualityReport extends AppCompatActivity {
         conditions.add("Treatable");
         conditions.add("Untreatable");
 
-        ArrayAdapter<String> conditionsDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, conditions);
+        conditionSpinner.getBackground().setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
+
+        ArrayAdapter<String> conditionsDataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, conditions);
         conditionsDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         conditionSpinner.setAdapter(conditionsDataAdapter);
         conditionSpinner.setSelection(0);
