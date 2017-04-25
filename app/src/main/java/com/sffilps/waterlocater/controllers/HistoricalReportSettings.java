@@ -2,6 +2,8 @@ package com.sffilps.waterlocater.controllers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -77,13 +79,16 @@ public class HistoricalReportSettings extends AppCompatActivity implements Adapt
         yOption.add("Contaminant");
         yOption.add("Virus");
 
+        xaxis.getBackground().setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
+        yaxis.getBackground().setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
 
-        ArrayAdapter<String> xDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, xOption);
+
+        ArrayAdapter<String> xDataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, xOption);
         xDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         xaxis.setAdapter(xDataAdapter);
         xaxis.setSelection(3);
 
-        ArrayAdapter<String> yDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, yOption);
+        ArrayAdapter<String> yDataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, yOption);
         yDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yaxis.setAdapter(yDataAdapter);
         yaxis.setSelection(0);

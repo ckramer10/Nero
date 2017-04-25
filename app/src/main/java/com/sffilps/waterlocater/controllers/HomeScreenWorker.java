@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,20 +34,21 @@ public class HomeScreenWorker extends AppCompatActivity {
     private Button viewReportsMap;
     private Button viewQualityReports;
     private Button viewHistoricalReports;
-    private Button settings;
+    private ImageButton settings;
     private FirebaseAuth mAuth;
     private TextView name;
     private String role;
     FirebaseUser currentUser;
     DatabaseReference mDatabase;
     private String userName;
+    Animation animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_home_worker);
 
-        settings = (Button) findViewById(R.id.settings);
+        settings = (ImageButton) findViewById(R.id.settings);
         submitReport = (Button) findViewById(R.id.submitreport);
         viewReportsList = (Button) findViewById(R.id.viewwsourceslist);
         viewReportsMap = (Button) findViewById(R.id.viewwsourcesmap);
@@ -54,6 +58,7 @@ public class HomeScreenWorker extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
 
 
         settings.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +130,7 @@ public class HomeScreenWorker extends AppCompatActivity {
                             setUserName((String) dataSnapshot.child("name").getValue());
                             role = (String) dataSnapshot.child("role").getValue();
                             name.setText("Welcome, " + userName);
+                            name.startAnimation(animation);
                         }
 
                         @Override

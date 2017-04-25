@@ -104,27 +104,6 @@
                 android:id="@+id/editAddress" />
 
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="30dp">
-
-            <TextView
-                android:text="Role: "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textColor="@android:color/white"
-                android:id="@+id/roleLabel"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/roleSpinner" />
-
-        </TableRow>
     </TableLayout>
 
     <Button

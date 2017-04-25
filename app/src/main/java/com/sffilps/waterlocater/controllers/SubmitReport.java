@@ -2,6 +2,8 @@ package com.sffilps.waterlocater.controllers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -93,10 +95,13 @@ public class SubmitReport extends AppCompatActivity implements AdapterView.OnIte
         conditions.add("Treatable-Muddy");
         conditions.add("Potable");
 
-        ArrayAdapter<String> typesDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, types);
+        typeSpinner.getBackground().setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
+        conditionSpinner.getBackground().setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
+
+        ArrayAdapter<String> typesDataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, types);
         typesDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        ArrayAdapter<String> conditionsDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, conditions);
+        ArrayAdapter<String> conditionsDataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, conditions);
         conditionsDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         typeSpinner.setAdapter(typesDataAdapter);

@@ -47,8 +47,6 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-
-        spinner = (Spinner) findViewById(R.id.roleSpinner);
         nameView = (TextView) findViewById(R.id.editName);
         emailView = (TextView) findViewById(R.id.editEmail);
         addressView = (TextView) findViewById(R.id.editAddress);
@@ -61,14 +59,7 @@ public class EditProfile extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        List<String> roles = new ArrayList<String>();
-        roles.add("User (Default)");
-        roles.add("Worker");
-        roles.add("Manager");
-        roles.add("Administrator");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roles);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
+
 
 
         final String uID = currentUser.getUid();
@@ -83,20 +74,6 @@ public class EditProfile extends AppCompatActivity {
                         nameView.setText(currUser.name);
                         emailView.setText(currUser.email);
                         addressView.setText(currUser.homeAddress);
-                        switch(currUser.role) {
-                            case "Administrator":
-                                spinner.setSelection(3);
-                                break;
-                            case "Manager":
-                                spinner.setSelection(2);
-                                break;
-                            case "Worker":
-                                spinner.setSelection(1);
-                                break;
-                            default:
-                                spinner.setSelection(0);
-                                break;
-                        }
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
